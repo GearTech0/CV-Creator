@@ -2,10 +2,10 @@
 <html lang="en-US">
 <html>
 <head>
-	<title>CV Creation Software</title>
-	<link rel="stylesheet" href="inputPage.css">
+	<title>CV Creation Software - Input</title>
+	<link rel="stylesheet" href="css/inputPage.css">
 </head>
-	<h1><a href = "Index.html">CV Creation Software</a></h1>
+	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
 	<h2>CV Information Input</h2>
 	<h3>Personal Information</h3>
 	<form>
@@ -46,4 +46,38 @@
 		<textarea form = "QualificationsForm" name = "Accreds" rows = "10" cols = "50" placeholder = "Enter accreditations here..">	
 		</textarea><br>
 	</form>
+	<h3>Choose Template</h3>
+	<table>
+        <tr>
+            <td>
+            	<img src="images/placeholder.jpg" alt="template1">
+            	<figcaption>Template 1</figcaption>
+        	</td>
+            <td>
+            	<img src="images/placeholder.jpg" alt="template2">
+            	<figcaption>Template 2</figcaption>
+            </td>
+            <td>
+            	<img src="images/placeholder.jpg" alt="template3">
+            	<figcaption>Template 3</figcaption>
+            </td>            
+        </tr>
+        <tr>
+            <td>
+            	<img src="images/placeholder.jpg" alt="template4">
+            	<figcaption>Template 4</figcaption>
+            </td>
+            <td>
+            	<img src="images/placeholder.jpg" alt="template5">
+            	<figcaption>Template 5</figcaption>
+            </td>
+        </tr>
+    </table>
+    <input type = "radio" name="template" value="template1">Template 1<br>
+    <input type = "radio" name="template" value="template2">Template 2<br>
+    <input type = "radio" name="template" value="template3">Template 3<br>
+    <input type = "radio" name="template" value="template4">Template 4<br>
+    <input type = "radio" name="template" value="template5">Template 5<br><br>
+    <input type = "checkbox" name="pdfChoose" value="Download as PDF?">Download CV as PDF?<br><br>
+	<input type = "submit" value = "Create CV">
 </html>
