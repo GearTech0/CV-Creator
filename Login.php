@@ -8,12 +8,12 @@
 <body>
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
 	<h1>Login</h1>
-	<form>
+	<form action = "CheckUser.PHP" method = "post">
 		Username:<br>
-		<input type = "text" name = "username"><br>
+		<input type = "text" name = "username" required><br>
 		Password:<br>
-		<input type = "password" name = "pass">
-		<input type = "submit" value = "Submit">
+		<input type = "password" name = "pass" required>
+		<input type = "submit" name = "submit" value = "Submit">
 		<input type = "reset" value = "Clear">
 	</form>
 	<p>Don't have an account? <a href = "CreateAccount.PHP">Create one</a></p>
