@@ -1,13 +1,13 @@
 <?php
-	DEFINE('DB_USERNAME', 'root');
- 	DEFINE('DB_PASSWORD', 'root');
- 	DEFINE('DB_HOST', 'localhost');
- 	DEFINE('DB_DATABASE', 'test');
+	$server = 'localhost';
+	$dbUsername = 'root';
+	$dbPassword = 'root';
+	$db = 'test';
+	$conn = new mysqli($server, $dbUsername, $dbPassword, $db);
 
-	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
-
-	if (mysqli_connect_error()) 
+	if($conn->connect_error)
 	{
-		die('Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error());
+		die("Connection error: " . $conn->connect_error);
 	}
+
 ?>

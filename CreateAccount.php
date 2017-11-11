@@ -13,7 +13,7 @@
 		<input type = "text" name = "username"><br>
 		Password:<br>
 		<input type = "password" name = "password">
-		<input type = "submit" value = "Submit">
+		<input type = "submit" value = "Submit" name = "submit">
 		<input type = "reset" value = "Clear">
 	</form>
 	<p>Already have an account? <a href = "Login.PHP">Login here</a></p>
