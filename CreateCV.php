@@ -13,19 +13,22 @@
 				x => int,
 				y => int,
 				color => string, //hexcode
-				backgroundcolor => string //hexcode
+				backgroundcolor => string, //hexcode
+				fontsize => int
 			),
 			body => array(
 				x => int,
 				y => int,
 				color => string, //hexcode
-				backgroundcolor => string //hexcode
+				backgroundcolor => string, //hexcode
+				fontsize => int
 			),
-			footter => array(
+			footer => array(
 				x => int,
 				y => int,
 				color => string, //hexcode
-				backgroundcolor => string //hexcode
+				backgroundcolor => string, //hexcode
+				fontsize => int
 			)
 		)
 	* $report array information to write to PDF
@@ -37,6 +40,11 @@
 	*/
 	function CreateCV($theme, $report)
 	{
-		
+		$pdf = new FPDF();
+		$pdf->AddPage();
+		$pdf->SetFont('Times', '', $theme->header->fontsize);
+		$pdf->Cell(40, 10, 'Hello World');
+		$pdf->Cell(60,10,'Powered by FPDF.',0,1,'C');
+		$pdf->Output();
 	}
 ?>
