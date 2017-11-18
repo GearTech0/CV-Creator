@@ -16,7 +16,7 @@
 			$username = $_POST['username'];
 			$password = $_POST['pass'];
 
-			$sql = "SELECT `UserID' FROM `users` WHERE `Username` = '$username' AND `Password` = '$password'";
+			$sql = "SELECT UserID FROM users WHERE Username = '$username'  AND Password = '$password'";
 			$result = $conn->query($sql);
 
 			if($result->num_rows > 0)
@@ -31,7 +31,7 @@
 			}else
 			{
 				// no such account
-				$error = 'Incorrect username or password';
+				$error = 'Incorrect username or password1';
 			}
 		}else
 		{
