@@ -1,4 +1,4 @@
 <?php
 	session_destroy();
-	header("Location: Index.PHP");
+	header("Location: Login.PHP");
 ?>
