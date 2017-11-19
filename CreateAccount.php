@@ -52,9 +52,9 @@
 			// Add Default Template theme-01
 			$sql = "INSERT INTO {$username}_templates VALUES (
 				'theme-01',
-				0, 0, '#000000', '#FFFFFF', 15, 'TIMES',
-				0, 0, '#000000', '#FFFFFF', 15, 'TIMES',
-				0, 0, '#000000', '#FFFFFF', 15, 'TIMES'
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES'
 			);";
 			if(!$conn->query($sql))
 			{
