@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<?php
+	session_start();
+	if(!isset($_SESSION['login_user']))
+	{
+		header("Location: Login.PHP");
+	}
+?>
 <html>
 <head>
 	<title>CV Creation Software - Input</title>
