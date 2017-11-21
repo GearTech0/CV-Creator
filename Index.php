@@ -28,8 +28,9 @@
             <li>Create a CV</li>
         </a>
         <?php if(isset($_SESSION['logged_in'])): ?>
-            <a href="ViewSaved.PHP"><li>View Saved Templates</li></a>
+            <a href="ViewSaved.PHP"><li>View Saved CV</li></a>
             <a href="EditSaved.PHP"><li>Edit Saved CV</li></a>
+            <a href="UploadTemplate.php"><li>Upload Custom Template</li></a>
         <?php endif; ?>
     </ul>
     <?php if(isset($_SESSION['logged_in'])): ?>
