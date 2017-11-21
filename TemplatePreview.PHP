@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<?php
+    session_set_cookie_params(0);
+    session_start();
+?>
 <html>
 <head>
 	<title>CV Creation Software - Templates</title>
@@ -34,6 +38,28 @@
             </td>
         </tr>
     </table><br>
+    <?php
+        /**
+        * This code gets all saved templates from the users uploads folder (if any)
+        * No parameters
+        * No return values
+        **/
+        if(isset($_SESSION['login_user']))
+        {
+            echo "<h3>" . $_SESSION['login_user'] . " uploaded custom templates:</h3>";
+            $target_dir = "uploads/" . $_SESSION['login_user'];
+            if(!file_exists($target_dir))
+            {
+                mkdir($target_dir, 0777, true);
+            }
+            echo "<ul>";
+            foreach(glob($target_dir.'/*.docx') as $file)
+            {
+                echo "<li>" . basename($file) . "</li>";
+            }
+            echo "</ul>";
+        }
+    ?>
     <h3>Have your own template? <a href="UploadTemplate.PHP">Upload it here</a></h3>
 </body>
 </html>
