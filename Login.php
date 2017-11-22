@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<?php 
+	session_set_cookie_params(0);
+	session_start(); 
+?>
 <html>
 <head>
 	<title>CV Creation Software</title>
@@ -13,17 +17,22 @@
 		$error = '';
 		if(isset($_POST['submit']) && !empty($_POST['username']) && !empty($_POST['pass']))
 		{
-			$username = $_POST['username'];
-			$password = $_POST['pass'];
+			$username = htmlspecialchars($_POST['username']);
+			$password = htmlspecialchars($_POST['pass']);
 
-			$sql = "SELECT UserID FROM users WHERE Username = '$username'  AND Password = '$password'";
+			$sql = "SELECT Admin FROM users WHERE Username = '$username'  AND Password = '$password'";
 			$result = $conn->query($sql);
 
 			if($result->num_rows > 0)
 			{
 				// success
-				session_start();
-				$_SESSION['logged_in'] = true;
+				while($row = $result->fetch_assoc())
+				{
+					$admin = $row["Admin"];
+				}
+				if($admin) $_SESSION['admin'] = TRUE;
+				else $_SESSION['admin'] = FALSE;
+				$_SESSION['logged_in'] = TRUE;
 				$_SESSION['login_user'] = $username;
 				header("Location: SuccessfulLogin.PHP");
 				$conn->close();
