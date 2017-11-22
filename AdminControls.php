@@ -19,7 +19,6 @@
 	<h2>Admin Tools</h2>
     <?php
 		require "Config.PHP";
-		$error = '';
 
 		$sql = "SELECT * FROM users";
 		$result = $conn->query($sql);
@@ -43,6 +42,7 @@
 		require "Config.PHP";
 		$error1 = '';
 		$error2 = '';
+		$error3 = '';
 		if(isset($_POST['submit']) && !empty($_POST['username']) && !empty($_POST['pass']))
 		{
 			$username = htmlspecialchars($_POST['username']);
@@ -50,22 +50,108 @@
 			if(isset($_POST['admin']))
 			{
 				$sql = "INSERT INTO `users` (`Username`, `Password`, `Admin`)
-									VALUES ('$username', '$password', '1')";
+					VALUES ('$username', '$password', '1')";
 			}else
 			{
 				$sql = "INSERT INTO `users` (`Username`, `Password`, `Admin`)
 					VALUES ('$username', '$password', '0')";
 			}
 
-			if($conn->query($sql) === TRUE)
+			if($conn->query($sql))
 			{
-				$error1 = 'Successfully added user, refresh page to see in table';
+				//echo "Created Successfully";
+				$error1 = 'Created user ' . $username . ' successfully';
 				$conn->close();
-				//header("Refresh:0");
+				exit();
 			}else
 			{
 				// if duplicate username, this will say so
 				$error1 = 'Username taken';
+				$conn->close();
+				exit();
+			}
+
+			// Add a template table for each user
+			$sql = "CREATE TABLE {$username}_templates (
+				ThemeName VARCHAR(15) PRIMARY KEY,
+
+				header_x INT,
+				header_y INT,
+				header_color VARCHAR(7),
+				header_bgcolor VARCHAR(7),
+				header_fontsize INT,
+				header_font VARCHAR(15),
+
+				body_x INT,
+				body_y INT,
+				body_color VARCHAR(7),
+				body_bgcolor VARCHAR(7),
+				body_fontsize INT,
+				body_font VARCHAR(15),
+
+				footer_x INT,
+				footer_y INT,
+				footer_color VARCHAR(7),
+				footer_bgcolor VARCHAR(7),
+				footer_fontsize INT,
+				footer_font VARCHAR(15)
+			);";
+
+			if(!$conn->query($sql))
+			{
+				$error1 = 'Error creating theme table: ' . $conn->connect_error;
+				exit();
+			}
+
+			// Add a previous cv table for each user
+			$sql = "CREATE TABLE {$username}_previous_cv (
+				CVName VARCHAR(255) PRIMARY KEY,
+
+				Name VARCHAR(30),
+				Phone VARCHAR(15),
+				Email VARCHAR(50),
+				WorkHistory TEXT(65532),
+				Academic TEXT(65532),
+				Research TEXT(65532),
+				University VARCHAR(255),
+				Degree VARCHAR(255),
+				Major VARCHAR(50),
+				Certs TEXT(65532),
+				Accreds TEXT(65532)
+			);";
+
+			if(!$conn->query($sql))
+			{
+				$error1 = 'Error creating previous cv table: ' . $conn->connect_error;
+				exit();
+			}
+
+			// Add Default Template theme-01
+			$sql = "INSERT INTO {$username}_templates VALUES (
+				'theme-01',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES'
+			);";
+
+			if(!$conn->query($sql))
+			{
+				$error1 = 'Error creating theme-01: ' . $conn->connect_error;
+				exit();
+			}
+
+		 	// Add Default Template theme-01
+			$sql = "INSERT INTO {$username}_templates VALUES (
+				'theme-02',
+				0, 0, '#000000', '#48A49B', 15, 'ARIAL',
+				0, 0, '#000000', '#48A49B', 15, 'ARIAL',
+				0, 0, '#000000', '#48A49B', 15, 'ARIAL'
+			);";
+
+			if(!$conn->query($sql))
+			{
+				$error1 = 'Error creating theme-02: ' . $conn->connect_error;
+				exit();
 			}
 		}else
 		{
@@ -75,7 +161,7 @@
 		if(isset($_POST['submitUpdate']) && !empty($_POST['usernameUpdate']))
 		{
 			$username = htmlspecialchars($_POST['usernameUpdate']);
-			if(isset($_POST['passUpdate']))
+			if($_POST['passUpdate'] !== '')
 			{
 				// updating a user password
 				$password = htmlspecialchars($_POST['passUpdate']);
@@ -99,7 +185,7 @@
 				$sql = "UPDATE users SET Admin=1 WHERE Username='$username'";
 				$result = $conn->query($sql);
 
-				if($conn->query($sql) === TRUE)
+				if($conn->query($sql))
 				{
 					$error2 = "<br>" . $error2 . 'Successfully updated user' . $username . ' admin';
 				}else
@@ -111,6 +197,7 @@
 
 			$error2 = $error2 . '<br>Refresh page to see any changes';
 			$conn->close();
+			exit();
 			//header("Refresh:0");
 		}else
 		{
@@ -124,13 +211,31 @@
 			$sql = "DELETE FROM users WHERE Username='$username'";
 			$result = $conn->query($sql);
 
-			if($conn->query($sql) === TRUE)
+			if($result)
 			{
 				$error3 = 'Successfully deleted user ' . $username . '. Refresh page to see changes';
 			}else
 			{
 				// if duplicate username, this will say so
 				$error3 = 'An error occurred while deleting user ' . $username;
+			}
+
+			$sql = "DROP TABLE {$username}_previous_cv";
+			$result = $conn->query($sql);
+			if(!$result)
+			{
+				$error3 = 'Error deleting previous cv table';
+				$conn->close();
+				exit();
+			}
+
+			$sql = "DROP TABLE {$username}_templates";
+			$result = $conn->query($sql);
+			if(!$result)
+			{
+				$error3 = 'Error deleting templates table';
+				$conn->close();
+				exit();
 			}
 		}
 	?>
@@ -146,7 +251,6 @@
 		<h4 class = "error"><?php echo $error1; ?></h4>
 	</form>
 	<h3>Update User</h3>
-	<p>Note: If updating a user with admin privileges, and you would like to keep those privileges, make sure the Admin checkbox is checked</p>
 	<form class="update_form" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method = "post">
 		Username:<br>
 		<input type = "text" name = "usernameUpdate" required><br>
