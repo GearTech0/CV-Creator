@@ -15,16 +15,75 @@
 	<?php
 		require "Config.PHP";
 		$error = '';
+
 		if(isset($_POST['submit']) && !empty($_POST['username']) && !empty($_POST['pass']))
 		{
 			$username = htmlspecialchars($_POST['username']);
 			$password = htmlspecialchars($_POST['pass']);
+
+			// Add a template table for each user
+			$sql = "CREATE TABLE {$username}_templates (
+				ThemeName VARCHAR(15) PRIMARY KEY,
+
+				header_x INT,
+				header_y INT,
+				header_color VARCHAR(7),
+				header_bgcolor VARCHAR(7),
+				header_fontsize INT,
+				header_font VARCHAR(15),
+
+				body_x INT,
+				body_y INT,
+				body_color VARCHAR(7),
+				body_bgcolor VARCHAR(7),
+				body_fontsize INT,
+				body_font VARCHAR(15),
+
+				footer_x INT,
+				footer_y INT,
+				footer_color VARCHAR(7),
+				footer_bgcolor VARCHAR(7),
+				footer_fontsize INT,
+				footer_font VARCHAR(15)
+			);";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme table: ' . $conn->connect_error;
+				exit();
+			}
+
+			// Add Default Template theme-01
+			$sql = "INSERT INTO {$username}_templates VALUES (
+				'theme-01',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				0, 0, '#000000', '#FFFFFF', 12, 'TIMES'
+			);";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-01: ' . $conn->connect_error;
+				exit();
+			}
+
+		 // Add Default Template theme-01
+			$sql = "INSERT INTO {$username}_templates VALUES (
+				'theme-02',
+				0, 0, '#000000', '#48A49B', 15, 'ARIAL',
+				0, 0, '#000000', '#48A49B', 15, 'ARIAL',
+				0, 0, '#000000', '#48A49B', 15, 'ARIAL'
+			);";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-02: ' . $conn->connect_error;
+				exit();
+			}
 
 			$sql = "INSERT INTO `users` (`Username`, `Password`, `Admin`)
 					VALUES ('$username', '$password', '0')";
 
 			if($conn->query($sql) === TRUE)
 			{
+				session_start();
 				//echo "Created Successfully";
 				$_SESSION['admin'] = FALSE;
 				$_SESSION['login_user'] = $username;
