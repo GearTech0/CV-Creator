@@ -57,15 +57,43 @@
   }
 
   /**
+  * SaveCVInformation
+  * Save current cv information to database
   *
-  *
-  *
-  *
-  *
+  * $report array of input values from user
+  * $username current logged in user
+  * $cvname current active CV name
+  * void return
   */
-  function SaveCVInformation($report)
+  function SaveCVInformation($report, $username, $cvname)
   {
-
+    require "Config.PHP";
+    $name = $report['name'];
+    $phone = $report['phone'];
+    $email = $report['email'];
+    $work = $report['WorkHistory'];
+    $acad = $report['AcaPosition'];
+    $research = $report['Reasearch'];
+    $uni = $report['University'];
+    $degree = $report['Degree'];
+    $major = $report['Major'];
+    $certs = $report['Certs'];
+    $accreds = $report['Accreds'];
+    // Update database entry with inputted information
+    $sql = "UPDATE `{$username}_previous_cv` 
+            SET Name='$name', Phone='$phone', Email='$email', WorkHistory='$work', Academic='$acad', Research='$research',
+                University='$uni', Degree='$degree', Major='$major', Certs='$certs', Accreds='$accreds'
+            WHERE CVName='$cvname'";
+    $result = $conn->query($sql);
+    if($result)
+    {
+      $error = 'Saved successfully';
+      $conn->close();
+    }else
+    {
+      $error = 'Save failed';
+    }
+    $conn->close();
   }
 
   /**
@@ -158,9 +186,9 @@
     ];
 
     //if($_POST['pdfchoose'])
-      CreateCV($theme, $report);
+    CreateCV($theme, $report);
 
-    SaveCVInformation($report);
+    SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
   }else if(isset($_POST['save']))
   {
     $report = [
@@ -179,21 +207,7 @@
       'Certs' => htmlspecialchars($_POST['Certs']),
       'Accreds' => htmlspecialchars($_POST['Accreds']),
     ];
-
-    $sql = "INSERT INTO `{$username}_previous_cv` (Name, Phone, Email, WorkHistory, Academic, Research,
-            University, Degree, Major, Certs, Accreds) VALUES ('$report['name']', '$report['phone']',
-            '$report['email']', '$report['WorkHistory']', '$report['AcaPosition']', '$report['Reasearch']',
-            '$report['University']', '$report['Degree']', '$report['Major']', '$report['Certs']',
-            '$report['Accreds']')";
-    $result = $conn->query($sql);
-    if($result)
-    {
-      $error = 'Saved successfully';
-      header("Location: CVInfoInput.php");
-    }else
-    {
-      $error = 'Save failed';
-    }
-    $conn->close();
+    SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
+    header("Location: CVInfoInput.php");
   }
 ?>

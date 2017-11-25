@@ -43,13 +43,13 @@
 
 					<h3>Employment History</h3>
 					Work History:<br>
-					<textarea form = "EmploymentHistoryForm" name="WorkHistory" rows="10" cols="50" value="<?php echo(htmlspecialchars($row['WorkHistory']));?>">
+					<textarea name="WorkHistory" rows="10" cols="50"><?php echo(htmlspecialchars($row['WorkHistory']));?>
 					</textarea><br>
 					Academic Position:<br>
-					<textarea form = "EmploymentHistoryForm" name="AcaPosition" rows="10" cols="50" value="<?php echo(htmlspecialchars($row['Academic']));?>">
+					<textarea name="AcaPosition" rows="10" cols="50"><?php echo(htmlspecialchars($row['Academic']));?>
 					</textarea><br>
 					Research and Training:<br>
-					<textarea form = "EmploymentHistoryForm" name="Reasearch" rows="10" cols="50" value="<?php echo(htmlspecialchars($row['Research']));?>">
+					<textarea name="Reasearch" rows="10" cols="50"><?php echo(htmlspecialchars($row['Research']));?>
 					</textarea><br>
 
 
@@ -64,10 +64,10 @@
 
 					<h3>Professional Qualifications</h3>
 						Certifications:<br>
-						<textarea form="QualificationsForm" name="Certs" rows="10" cols="50" value="<?php echo(htmlspecialchars($row['Certs']));?>">
+						<textarea name="Certs" rows="10" cols="50" ><?php echo(htmlspecialchars($row['Certs']));?>
 						</textarea><br>
 						Accreditations:<br>
-						<textarea form="QualificationsForm" name="Accreds" rows="10" cols="50" value="<?php echo(htmlspecialchars($row['Accreds']));?>">
+						<textarea name="Accreds" rows="10" cols="50"><?php echo(htmlspecialchars($row['Accreds']));?>
 						</textarea><br>
 
 
