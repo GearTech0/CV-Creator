@@ -31,8 +31,6 @@
 				$_SESSION['login_user'] = $username;
 				$_SESSION['logged_in'] = TRUE;
 				header("Location: SuccessfulLogin.PHP");
-				$conn->close();
-				exit();
 			}else
 			{
 				// if duplicate username, this will say so
@@ -75,17 +73,17 @@
 			$sql = "CREATE TABLE {$username}_previous_cv (
 				CVName VARCHAR(255) PRIMARY KEY,
 
-				Name VARCHAR(30),
-				Phone VARCHAR(15),
-				Email VARCHAR(50),
-				WorkHistory TEXT(65532),
-				Academic TEXT(65532),
-				Research TEXT(65532),
-				University VARCHAR(255),
-				Degree VARCHAR(255),
-				Major VARCHAR(50),
-				Certs TEXT(65532),
-				Accreds TEXT(65532)
+				Name VARCHAR(30) DEFAULT '',
+				Phone VARCHAR(15) DEFAULT '',
+				Email VARCHAR(50) DEFAULT '',
+				WorkHistory TEXT(65532) DEFAULT '' NOT NULL,
+				Academic TEXT(65532) DEFAULT '' NOT NULL,
+				Research TEXT(65532) DEFAULT '' NOT NULL,
+				University VARCHAR(255) DEFAULT '',
+				Degree VARCHAR(255) DEFAULT '',
+				Major VARCHAR(50) DEFAULT '',
+				Certs TEXT(65532) DEFAULT '' NOT NULL,
+				Accreds TEXT(65532) DEFAULT '' NOT NULL
 			);";
 			if(!$conn->query($sql))
 			{

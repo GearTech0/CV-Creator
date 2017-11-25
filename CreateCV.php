@@ -161,5 +161,39 @@
       CreateCV($theme, $report);
 
     SaveCVInformation($report);
+  }else if(isset($_POST['save']))
+  {
+    $report = [
+      'name' => htmlspecialchars($_POST['name']),
+      'phone' => htmlspecialchars($_POST['phone']),
+      'email' => htmlspecialchars($_POST['email']),
+
+      'WorkHistory' => htmlspecialchars($_POST['WorkHistory']),
+      'AcaPosition' => htmlspecialchars($_POST['AcaPosition']),
+      'Reasearch' => htmlspecialchars($_POST['Reasearch']),
+
+      'University' => htmlspecialchars($_POST['University']),
+      'Degree' => htmlspecialchars($_POST['Degree']),
+      'Major' => htmlspecialchars($_POST['Major']),
+
+      'Certs' => htmlspecialchars($_POST['Certs']),
+      'Accreds' => htmlspecialchars($_POST['Accreds']),
+    ];
+
+    $sql = "INSERT INTO `{$username}_previous_cv` (Name, Phone, Email, WorkHistory, Academic, Research,
+            University, Degree, Major, Certs, Accreds) VALUES ('$report['name']', '$report['phone']',
+            '$report['email']', '$report['WorkHistory']', '$report['AcaPosition']', '$report['Reasearch']',
+            '$report['University']', '$report['Degree']', '$report['Major']', '$report['Certs']',
+            '$report['Accreds']')";
+    $result = $conn->query($sql);
+    if($result)
+    {
+      $error = 'Saved successfully';
+      header("Location: CVInfoInput.php");
+    }else
+    {
+      $error = 'Save failed';
+    }
+    $conn->close();
   }
 ?>

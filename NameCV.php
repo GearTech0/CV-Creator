@@ -18,41 +18,36 @@
     <h2>Name CV</h2>
     <?php
     	require "Config.PHP";
-		$error1 = '';
+		$error = '';
 
-    	if(isset($_POST['submit']) && !empty($_POST['CVname']))
+    	if(isset($_POST['submit']) && $_POST['CVname'] !== '')
 		{
 			$cvname = htmlspecialchars($_POST['CVname']);
-			$sql = "SELECT `CVName` FROM " . $_SESSION['login_user'] . "_previous_cv";
+			$table = $_SESSION['login_user'] . "_previous_cv";
+			$sql = "INSERT INTO `" . $table . "` (CVName) VALUES ('" . $cvname. "')";
 			$result = $conn->query($sql);
-
-			if($result->num_rows > 0)
+			if($result)
 			{
-				// error, duplicate name
-				$error = 'Duplicate name, please enter a unique CV name';
+				// success
+				$_SESSION['currentCV'] = $cvname;
+				header("Location: CVInfoInput.php");
+				$conn->close();
+				exit();
 			}else
 			{
-				$sql = "INSERT INTO " . $_SESSION['login_user'] . "_previous_cv (CVName) VALUES ('$cvname')";
-				$result = $conn->query($sql);
-				if($result)
-				{
-					// success
-
-				}else
-				{
-					// error
-					$error = 'Failed to create CV ' . $cvname;
-				}
+				// error
+				$error = 'CV name ' . $cvname . ' already created';
 			}
 		}else
 		{
 			$error = 'Please enter a CV name';
 		}
+		$conn->close();
     ?>
     <form class="NameForm" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
 		Name:<br>
 		<input type = "text" name = "CVname" required>
-		<input type = "submit" value = "Continue">
+		<input type = "submit" value = "Continue" name="submit">
 		<h4 class = "error"><?php echo $error; ?></h4>
     </form>
 </body>

@@ -44,6 +44,8 @@
         * No parameters
         * No return values
         **/
+        // this code is redundant - will be changed
+        /*
         if(isset($_SESSION['login_user']))
         {
             echo "<h3>" . $_SESSION['login_user'] . " uploaded custom templates:</h3>";
@@ -59,6 +61,7 @@
             }
             echo "</ul>";
         }
+        */
     ?>
     <h3>Have your own template? <a href="UploadTemplate.PHP">Upload it here</a></h3>
 </body>

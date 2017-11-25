@@ -61,8 +61,6 @@
 			{
 				//echo "Created Successfully";
 				$error1 = 'Created user ' . $username . ' successfully';
-				$conn->close();
-				exit();
 			}else
 			{
 				// if duplicate username, this will say so
@@ -100,6 +98,7 @@
 			if(!$conn->query($sql))
 			{
 				$error1 = 'Error creating theme table: ' . $conn->connect_error;
+				$conn->close();
 				exit();
 			}
 
@@ -107,22 +106,23 @@
 			$sql = "CREATE TABLE {$username}_previous_cv (
 				CVName VARCHAR(255) PRIMARY KEY,
 
-				Name VARCHAR(30),
-				Phone VARCHAR(15),
-				Email VARCHAR(50),
-				WorkHistory TEXT(65532),
-				Academic TEXT(65532),
-				Research TEXT(65532),
-				University VARCHAR(255),
-				Degree VARCHAR(255),
-				Major VARCHAR(50),
-				Certs TEXT(65532),
-				Accreds TEXT(65532)
+				Name VARCHAR(30) DEFAULT '',
+				Phone VARCHAR(15) DEFAULT '',
+				Email VARCHAR(50) DEFAULT '',
+				WorkHistory TEXT(65532) DEFAULT '' NOT NULL,
+				Academic TEXT(65532) DEFAULT '' NOT NULL,
+				Research TEXT(65532) DEFAULT '' NOT NULL,
+				University VARCHAR(255) DEFAULT '',
+				Degree VARCHAR(255) DEFAULT '',
+				Major VARCHAR(50) DEFAULT '',
+				Certs TEXT(65532) DEFAULT '' NOT NULL,
+				Accreds TEXT(65532) DEFAULT '' NOT NULL
 			);";
 
 			if(!$conn->query($sql))
 			{
 				$error1 = 'Error creating previous cv table: ' . $conn->connect_error;
+				$conn->close();
 				exit();
 			}
 
@@ -137,6 +137,7 @@
 			if(!$conn->query($sql))
 			{
 				$error1 = 'Error creating theme-01: ' . $conn->connect_error;
+				$conn->close();
 				exit();
 			}
 
@@ -151,6 +152,7 @@
 			if(!$conn->query($sql))
 			{
 				$error1 = 'Error creating theme-02: ' . $conn->connect_error;
+				$conn->close();
 				exit();
 			}
 		}else
@@ -175,6 +177,8 @@
 				{
 					// if duplicate username, this will say so
 					$error2 = 'An error occurred while updating pass';
+					$conn->close();
+					exit();
 				}
 			}
 			
@@ -192,6 +196,8 @@
 				{
 					// if duplicate username, this will say so
 					$error2 = $error2 . '<br>An error occurred while updating admin';
+					$conn->close();
+					exit();
 				}
 			}
 
@@ -208,6 +214,12 @@
 		if(isset($_POST['submitDelete']) && !empty($_POST['usernameDel']))
 		{
 			$username = htmlspecialchars($_POST['usernameDel']);
+			if($username === $_SESSION['login_user'])
+			{
+				$error3 = "Don't delete yourself";
+				$conn->close();
+				exit();
+			}
 			$sql = "DELETE FROM users WHERE Username='$username'";
 			$result = $conn->query($sql);
 
@@ -218,6 +230,8 @@
 			{
 				// if duplicate username, this will say so
 				$error3 = 'An error occurred while deleting user ' . $username;
+				$conn->close();
+				exit();
 			}
 
 			$sql = "DROP TABLE {$username}_previous_cv";
