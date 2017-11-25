@@ -155,6 +155,8 @@
 				$conn->close();
 				exit();
 			}
+			header("Refresh:0");
+			exit();
 		}else
 		{
 			$error1 = 'Please enter a username and password';
@@ -203,12 +205,11 @@
 
 			$error2 = $error2 . '<br>Refresh page to see any changes';
 			$conn->close();
+			header("Refresh:0");
 			exit();
-			//header("Refresh:0");
 		}else
 		{
 			$error2 = 'Please enter a username to update';
-			//header("Refresh:0");
 		}
 
 		if(isset($_POST['submitDelete']) && !empty($_POST['usernameDel']))
@@ -251,6 +252,8 @@
 				$conn->close();
 				exit();
 			}
+			header("Refresh:0");
+			exit();
 		}
 	?>
 	<h3>Add User</h3>
