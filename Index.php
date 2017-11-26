@@ -24,7 +24,7 @@
         <a href="TemplatePreview.PHP">
             <li>View Sample Templates</li>
         </a>
-        <a href="CVInfoInput.PHP">
+        <a href="NameCV.PHP">
             <li>Create a CV</li>
         </a>
         <?php if(isset($_SESSION['logged_in'])): ?>
