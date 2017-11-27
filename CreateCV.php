@@ -9,6 +9,9 @@
   *
   * $theme array specifications on how the PDF will look
   *	array(
+  *   title => array(
+  *     style => char
+  *   ),
   *		header => array(
   *			x => int,
   *			y => int,
@@ -40,18 +43,73 @@
   */
   function CreateCV($theme, $report)
   {
+    $move = $theme['header']['x'];
+    $textAreaW = 0;
+    $textW = 10;
+    $height = 5;
+
+    /* Underlining
+    $pdf->SetFont($theme['header']['font'], 'U', $theme['header']['fontsize'],'U');
+    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
+    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
+    */
+
+    /* Coloring
+    $pdf->SetFillColor(0,153,255);
+    $pdf->Cell(0,10,$report['name'],0,1,'C',1);
+    $pdf->Ln(12);
+    */
+
     $pdf = new FPDF();
     $pdf->AddPage();
+    $pdf->SetFont($theme['header']['font'], $theme['title']['style'], $theme['header']['fontsize']);
+    $pdf->Cell($move);
+
+    /*
+    if($theme['header']['backgroundcolor'] != '#FFFFFF')
+    {
+      $pdf->
+    }
+    */
+
+    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
     $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
+    $pdf->Ln(4);
+    $pdf->Cell($textW,$height,$report['name'],0,1,'L');
+    $pdf->Cell($textW,$height,$report['phone'],0,1,'L');
+    $pdf->Cell($textW,$height,$report['email'],0,1,'L');
+    $pdf->Ln(6);
 
-    // Create Header if CV
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['name'],0,1,'C');
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['phone'],0,1,'C');
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['email'],0,1,'C');
+    $pdf->Cell($move);
+    $pdf->SetFont($theme['header']['font'], $theme['title']['style'], $theme['header']['fontsize']);
+    $pdf->Cell(10,$height,'Employment History',0,1,'C');
+    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
+    $pdf->Ln(4);
+    $pdf->MultiCell($textAreaW,$height,$report['WorkHistory'],0,'L');
+    $pdf->Ln(4);
+    $pdf->MultiCell($textAreaW,$height,$report['AcaPosition'],0,'L');
+    $pdf->Ln(4);
+    $pdf->MultiCell($textAreaW,$height,$report['Reasearch'],0,'L');
+    $pdf->Ln(6);
 
+    $pdf->Cell(7);
+    $pdf->SetFont($theme['header']['font'], $theme['title']['style'], $theme['header']['fontsize']);
+    $pdf->Cell(10,$height,'Education',0,1,'C');
+    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
+    $pdf->Ln(4);
+    $pdf->Cell($textW,$height,$report['University'],0,1,'L');
+    $pdf->Cell($textW,$height,$report['Degree'],0,1,'L');
+    $pdf->Cell($textW,$height,$report['Major'],0,1,'L');
+    $pdf->Ln(6);
+
+    $pdf->Cell(27);
+    $pdf->SetFont($theme['header']['font'], $theme['title']['style'], $theme['header']['fontsize']);
+    $pdf->Cell(10,$height,'Professional Qualifications',0,1,'C');
+    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
+    $pdf->Ln(4);
+    $pdf->MultiCell($textAreaW,$height,$report['Certs'],0,'L');
+    $pdf->Ln(4);
+    $pdf->MultiCell($textAreaW,$height,$report['Accreds'],0,'L');
 
     $pdf->Output();
   }
@@ -88,7 +146,6 @@
     if($result)
     {
       $error = 'Saved successfully';
-      $conn->close();
     }else
     {
       $error = 'Save failed';
@@ -116,6 +173,9 @@
       while($row = $result->fetch_assoc()) {
         // Set theme information into theme array in respective positions
         $theme = [
+          'title' => [
+            'style' => $row['title_style']
+          ],
           'header' => [
             'x' => $row['header_x'],
             'y' => $row['header_y'],

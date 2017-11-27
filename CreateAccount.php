@@ -42,6 +42,8 @@
 			$sql = "CREATE TABLE {$username}_templates (
 				ThemeName VARCHAR(15) PRIMARY KEY,
 
+				title_style VARCHAR(1),
+
 				header_x INT,
 				header_y INT,
 				header_color VARCHAR(7),
@@ -94,9 +96,10 @@
 			// Add Default Template theme-01
 			$sql = "INSERT INTO {$username}_templates VALUES (
 				'theme-01',
-				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
-				0, 0, '#000000', '#FFFFFF', 12, 'TIMES',
-				0, 0, '#000000', '#FFFFFF', 12, 'TIMES'
+				'',
+				20, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				20, 0, '#000000', '#FFFFFF', 12, 'TIMES',
+				20, 0, '#000000', '#FFFFFF', 12, 'TIMES'
 			);";
 			if(!$conn->query($sql))
 			{
@@ -104,12 +107,13 @@
 				exit();
 			}
 
-		 // Add Default Template theme-01
+		 // Add Default Template theme-02
 			$sql = "INSERT INTO {$username}_templates VALUES (
 				'theme-02',
-				0, 0, '#000000', '#48A49B', 15, 'ARIAL',
-				0, 0, '#000000', '#48A49B', 15, 'ARIAL',
-				0, 0, '#000000', '#48A49B', 15, 'ARIAL'
+				'U',
+				20, 0, '#000000', '#4286f4', 15, 'ARIAL',
+				20, 0, '#000000', '#FFFFFF', 15, 'ARIAL',
+				20, 0, '#000000', '#4286f4', 15, 'ARIAL'
 			);";
 			if(!$conn->query($sql))
 			{
