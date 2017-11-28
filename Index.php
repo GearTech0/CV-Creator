@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <?php
+    require("Config.PHP");
     session_set_cookie_params(0);
     session_start();
+    if($result = $conn->query("SHOW TABLES LIKE 'users'"))
+    {
+        if($result->num_rows != 1)
+        {
+            $sql = "CREATE TABLE users (
+                    UserID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    Username VARCHAR(15) NOT NULL,
+                    Password VARCHAR(15) NOT NULL,
+                    Admin TINYINT(1))";
+            if($conn->query($sql) != TRUE)
+            {
+                echo 'Error creating users table';
+                exit();
+            }
+        }
+    }
 ?>
 <html>
 <head>
