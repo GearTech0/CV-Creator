@@ -21,6 +21,23 @@
 			$username = htmlspecialchars($_POST['username']);
 			$password = htmlspecialchars($_POST['pass']);
 
+			$sql = "INSERT INTO `users` (`Username`, `Password`, `Admin`)
+					VALUES ('$username', '$password', '0')";
+
+			if($conn->query($sql))
+			{
+				//echo "Created Successfully";
+				$_SESSION['admin'] = FALSE;
+				$_SESSION['login_user'] = $username;
+				$_SESSION['logged_in'] = TRUE;
+				header("Location: SuccessfulLogin.PHP");
+			}else
+			{
+				// if duplicate username, this will say so
+				$error = 'Username taken';
+				exit();
+			}
+
 			// Add a template table for each user
 			$sql = "CREATE TABLE {$username}_templates (
 				ThemeName VARCHAR(15) PRIMARY KEY,
@@ -52,6 +69,28 @@
 				exit();
 			}
 
+			// Add a previous cv table for each user
+			$sql = "CREATE TABLE {$username}_previous_cv (
+				CVName VARCHAR(255) PRIMARY KEY,
+
+				Name VARCHAR(30) DEFAULT '',
+				Phone VARCHAR(15) DEFAULT '',
+				Email VARCHAR(50) DEFAULT '',
+				WorkHistory TEXT(65532) DEFAULT '' NOT NULL,
+				Academic TEXT(65532) DEFAULT '' NOT NULL,
+				Research TEXT(65532) DEFAULT '' NOT NULL,
+				University VARCHAR(255) DEFAULT '',
+				Degree VARCHAR(255) DEFAULT '',
+				Major VARCHAR(50) DEFAULT '',
+				Certs TEXT(65532) DEFAULT '' NOT NULL,
+				Accreds TEXT(65532) DEFAULT '' NOT NULL
+			);";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating previous cv table: ' . $conn->connect_error;
+				exit();
+			}
+
 			// Add Default Template theme-01
 			$sql = "INSERT INTO {$username}_templates VALUES (
 				'theme-01',
@@ -76,25 +115,6 @@
 			{
 				$error = 'Error creating theme-02: ' . $conn->connect_error;
 				exit();
-			}
-
-			$sql = "INSERT INTO `users` (`Username`, `Password`, `Admin`)
-					VALUES ('$username', '$password', '0')";
-
-			if($conn->query($sql) === TRUE)
-			{
-				session_start();
-				//echo "Created Successfully";
-				$_SESSION['admin'] = FALSE;
-				$_SESSION['login_user'] = $username;
-				$_SESSION['logged_in'] = TRUE;
-				header("Location: SuccessfulLogin.PHP");
-				$conn->close();
-				exit();
-			}else
-			{
-				// if duplicate username, this will say so
-				$error = 'Username taken';
 			}
 		}else
 		{

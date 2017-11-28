@@ -43,29 +43,87 @@
     $pdf = new FPDF();
     $pdf->AddPage();
     $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
-
+    $move = 20;
+    $textAreaW = 0;
+    $textW = 10;
+    $height = 5;
     // Create Header if CV
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['name'],0,1,'C');
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['phone'],0,1,'C');
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['email'],0,1,'C');
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['name'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['phone'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['email'],0,1,'L');
+    $pdf->Ln(6);
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Employment History',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['WorkHistory'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['AcaPosition'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['Reasearch'],0,1,'L');
+    $pdf->Ln(6);
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Education',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['University'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['Degree'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['Major'],0,1,'L');
+    $pdf->Ln(6);
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Professional Qualifications',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['Certs'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['Accreds'],0,1,'L');
 
 
     $pdf->Output();
   }
 
   /**
+  * SaveCVInformation
+  * Save current cv information to database
   *
-  *
-  *
-  *
-  *
+  * $report array of input values from user
+  * $username current logged in user
+  * $cvname current active CV name
+  * void return
   */
-  function SaveCVInformation($report)
+  function SaveCVInformation($report, $username, $cvname)
   {
-
+    require "Config.PHP";
+    $name = $report['name'];
+    $phone = $report['phone'];
+    $email = $report['email'];
+    $work = $report['WorkHistory'];
+    $acad = $report['AcaPosition'];
+    $research = $report['Reasearch'];
+    $uni = $report['University'];
+    $degree = $report['Degree'];
+    $major = $report['Major'];
+    $certs = $report['Certs'];
+    $accreds = $report['Accreds'];
+    // Update database entry with inputted information
+    $sql = "UPDATE `{$username}_previous_cv` 
+            SET Name='$name', Phone='$phone', Email='$email', WorkHistory='$work', Academic='$acad', Research='$research',
+                University='$uni', Degree='$degree', Major='$major', Certs='$certs', Accreds='$accreds'
+            WHERE CVName='$cvname'";
+    $result = $conn->query($sql);
+    if($result)
+    {
+      $error = 'Saved successfully';
+      $conn->close();
+    }else
+    {
+      $error = 'Save failed';
+    }
+    $conn->close();
   }
 
   /**
@@ -158,8 +216,28 @@
     ];
 
     //if($_POST['pdfchoose'])
-      CreateCV($theme, $report);
+    CreateCV($theme, $report);
 
-    SaveCVInformation($report);
+    SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
+  }else if(isset($_POST['save']))
+  {
+    $report = [
+      'name' => htmlspecialchars($_POST['name']),
+      'phone' => htmlspecialchars($_POST['phone']),
+      'email' => htmlspecialchars($_POST['email']),
+
+      'WorkHistory' => htmlspecialchars($_POST['WorkHistory']),
+      'AcaPosition' => htmlspecialchars($_POST['AcaPosition']),
+      'Reasearch' => htmlspecialchars($_POST['Reasearch']),
+
+      'University' => htmlspecialchars($_POST['University']),
+      'Degree' => htmlspecialchars($_POST['Degree']),
+      'Major' => htmlspecialchars($_POST['Major']),
+
+      'Certs' => htmlspecialchars($_POST['Certs']),
+      'Accreds' => htmlspecialchars($_POST['Accreds']),
+    ];
+    SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
+    header("Location: CVInfoInput.php");
   }
 ?>
