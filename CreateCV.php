@@ -43,14 +43,44 @@
     $pdf = new FPDF();
     $pdf->AddPage();
     $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
-
+    $move = 20;
+    $textAreaW = 0;
+    $textW = 10;
+    $height = 5;
     // Create Header if CV
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['name'],0,1,'C');
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['phone'],0,1,'C');
-    $pdf->Cell(80);
-    $pdf->Cell(10,5,$report['email'],0,1,'C');
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['name'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['phone'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['email'],0,1,'L');
+    $pdf->Ln(6);
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Employment History',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['WorkHistory'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['AcaPosition'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['Reasearch'],0,1,'L');
+    $pdf->Ln(6);
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Education',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['University'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['Degree'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->Cell($textW,$height,$report['Major'],0,1,'L');
+    $pdf->Ln(6);
+    $pdf->Cell($move);
+    $pdf->Cell(10,$height,'Professional Qualifications',0,1,'C');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['Certs'],0,1,'L');
+    $pdf->Cell($move);
+    $pdf->MultiCell($textAreaW,$height,$report['Accreds'],0,1,'L');
 
 
     $pdf->Output();
