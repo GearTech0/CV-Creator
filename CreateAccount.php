@@ -150,7 +150,7 @@
 			}
 			// set title/subtitle text size
 			$sql = "UPDATE {$username}_templates
-					SET box1size=14, box8size=14, box15size=14, box20size=14,
+					SET box1size=14, box8size=14, box15size=14, box22size=14,
 						box2size=12, box4size=12, box6size=12, box9size=12, box11size=12, box13size=12, box16size=12, box18size=12,
 						box20size=12, box23size=12, box25size=12
 					WHERE ThemeName='theme-01';";
@@ -195,7 +195,7 @@
 			// set subtitles for sections in boxes 6, 8, 10, 17, 19
 			$sql = "UPDATE {$username}_templates
 					SET box6text='Work History', box8text='Academic Position', box10text='Research and Training', 
-						box17text='Certifications', box19text='Academic Position', 
+						box17text='Certifications', box19text='Accreditations', 
 						box6subtitle=1, box8subtitle=1, box10subtitle=1, box17subtitle=1, box19subtitle=1
 					WHERE ThemeName='theme-02';";
 			if(!$conn->query($sql))
@@ -275,7 +275,7 @@
 			// set subtitles for sections in boxes 6, 8, 10, 17, 19
 			$sql = "UPDATE {$username}_templates
 					SET box6text='Work History', box8text='Academic Position', box10text='Research and Training', 
-						box17text='Certifications', box19text='Academic Position', 
+						box17text='Certifications', box19text='Accreditations', 
 						box6subtitle=1, box8subtitle=1, box10subtitle=1, box17subtitle=1, box19subtitle=1
 					WHERE ThemeName='theme-03';";
 			if(!$conn->query($sql))
