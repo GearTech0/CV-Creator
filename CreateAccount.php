@@ -69,7 +69,7 @@
 							box" . $x . "height INT DEFAULT 0,
 							box" . $x . "text VARCHAR(100) DEFAULT '' NOT NULL,
 							box" . $x . "border VARCHAR(4) DEFAULT '',
-
+							box" . $x . "borderColor VARCHAR(7) DEFAULT '#FFFFFF',
 							box" . $x . "ln INT DEFAULT 1,
 							box" . $x . "align CHAR(1) DEFAULT 'L',
 							box" . $x . "fill BOOLEAN DEFAULT false,
@@ -540,7 +540,8 @@
 						box1align='C', box2align='C', box3align='C',
 						box1width=0, box2width=0, box3width=0, box4width=0, box6width=0, box12width=0,
 						box4border='B', box6border='B', box12border='B',
-						box10fontColor='#39AAF1', box13fontColor='#39AAF1', box15fontColor='#39AAF1'
+						box10fontColor='#39AAF1', box13fontColor='#39AAF1', box15fontColor='#39AAF1',
+						box10borderColor='#39AAF1', box13borderColor='#39AAF1', box15borderColor='#39AAF1'
 					WHERE ThemeName='theme-06';";
 			if(!$conn->query($sql))
 			{
@@ -549,6 +550,331 @@
 				exit();
 			}
 			//**************** End Default Template theme-06 ****************//
+
+			//**************** Add Default Template theme-07 ****************//
+			$sql = "INSERT INTO {$username}_templates (ThemeName) VALUES ('theme-07');";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-07: ' . $conn->connect_error;
+				exit();
+			}
+			// theme-07 requires boxes 1-15
+			for($x = 1; $x < 16; $x++)
+			{
+				$sql = "UPDATE {$username}_templates
+						SET box".$x."=1, box".$x."width=20, box".$x."height=10, box".$x."border='0', box".$x."ln=1,
+							box".$x."align='L', box".$x."fill=0, box".$x."font='Arial'
+						WHERE ThemeName='theme-07';";
+				if(!$conn->query($sql))
+				{
+					$error = 'Error creating theme-07: ' . $conn->connect_error;
+					exit();
+				}
+			}
+			// set titles for sections in boxes 2 5 10 12
+			$sql = "UPDATE {$username}_templates
+					SET box2text='Experience', box5text='Education', box10text='Accreditations', box12text='Certifications',
+						box2title=1, box5title=1, box10title=1, box12title=1,
+						box2padding=2, box5padding=2, box10padding=2, box12padding=2
+					WHERE ThemeName='theme-07';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-07: ' . $conn->connect_error;
+				exit();
+			}
+			// set title/subtitle text size
+			$sql = "UPDATE {$username}_templates
+					SET box2size=14, box5size=14, box10size=14, box12size=14 
+					WHERE ThemeName='theme-07';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-07: ' . $conn->connect_error;
+				exit();
+			}
+			// set box texts
+			$sql = "UPDATE {$username}_templates
+					SET box1text='name', box3text='WorkHistory', box4text='Reasearch',
+						box6text='University', box7text='Degree', box8text='Major',
+						box9text='AcaPosition', box11text='Accreds', box13text='Certs', box14text='phone', box15text='email',
+						box3multi=1, box4multi=1, box9multi=1, box11multi=1, box13multi=1
+					WHERE ThemeName='theme-07';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-07: ' . $conn->connect_error;
+				exit();
+			}
+			// customizations for theme-07
+			$sql = "UPDATE {$username}_templates
+					SET box1size=17, box1width=0, box1align='C',
+						box2border='B', box5border='B', box10border='B', box12border='B', box15border='B',
+						box2borderColor='#E86E59', box5borderColor='#E86E59', box10borderColor='#E86E59', box12borderColor='#E86E59', box15borderColor='#E86E59',
+						box2align='C', box5align='C', box10align='C', box12align='C', box14align='C', box15align='C',
+						box2width=0, box5width=0, box10width=0, box12width=0, box14width=0, box15width=0,
+						box3padding=1, box8padding=1
+					WHERE ThemeName='theme-07';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-07: ' . $conn->connect_error;
+				print($error);
+				exit();
+			}
+			//**************** End Default Template theme-07 ****************//
+
+			//**************** Add Default Template theme-08 ****************//
+			$sql = "INSERT INTO {$username}_templates (ThemeName) VALUES ('theme-08');";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-08: ' . $conn->connect_error;
+				exit();
+			}
+			// theme-08 requires boxes 1-16
+			for($x = 1; $x < 17; $x++)
+			{
+				$sql = "UPDATE {$username}_templates
+						SET box".$x."=1, box".$x."width=20, box".$x."height=10, box".$x."border='0', box".$x."ln=1,
+							box".$x."align='L', box".$x."fill=0, box".$x."font='Arial'
+						WHERE ThemeName='theme-08';";
+				if(!$conn->query($sql))
+				{
+					$error = 'Error creating theme-08: ' . $conn->connect_error;
+					exit();
+				}
+			}
+			// set titles for sections in boxes 4 9 15
+			$sql = "UPDATE {$username}_templates
+					SET box4text='Professional Qualifications', box9text='Education', box15text='Work History',
+						box4title=1, box9title=1, box15title=1,
+						box4padding=2, box9padding=2, box15padding=2
+					WHERE ThemeName='theme-08';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-08: ' . $conn->connect_error;
+				exit();
+			}
+			// set subtitles for sections in boxes 5 7
+			$sql = "UPDATE {$username}_templates
+					SET box5text='Certifications', box7text='Accreditations',
+						box5subtitle=1, box7subtitle=1
+					WHERE ThemeName='theme-08';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-08: ' . $conn->connect_error;
+				exit();
+			}
+			// set title/subtitle text size
+			$sql = "UPDATE {$username}_templates
+					SET box4size=15, box9size=15, box15size=15,
+						box5size=12, box7size=12
+					WHERE ThemeName='theme-08';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-08: ' . $conn->connect_error;
+				exit();
+			}
+			// set box texts
+			$sql = "UPDATE {$username}_templates
+					SET box1text='name', box2text='email', box3text='phone',
+						box6text='Certs', box8text='Accreds', box10text='University',
+						box11text='Degree', box12text='Major', box13text='AcaPosition', box14text='Reasearch', box16text='WorkHistory',
+						box6multi=1, box8multi=1, box13multi=1, box14multi=1, box16multi=1
+					WHERE ThemeName='theme-08';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-08: ' . $conn->connect_error;
+				exit();
+			}
+			// customizations for theme-08
+			$sql = "UPDATE {$username}_templates
+					SET box1size=24, box1width=0, box1align='R',
+						box1fontColor='#180E80', box2fontColor='#FFFFFF', box3fontColor='#FFFFFF',
+						box2color='#180E80', box3color='#180E80',
+						box2fill=1, box3fill=1,
+						box2align='C', box3align='R',
+						box2width=180, box3width=0,
+						box2ln=0, box2move=180,
+						box4style='B', box5style='B', box7style='B', box9style='B', box15style='B',
+						box6border='L', box8border='L', box10border='L', box11border='L', box12border='L', box13border='L', box14border='L', box16border='L',
+						box6borderColor='#180E80', box8borderColor='#180E80', box10borderColor='#180E80', box11borderColor='#180E80',
+						box12borderColor='#180E80', box13borderColor='#180E80', box14borderColor='#180E80', box16borderColor='#180E80'
+					WHERE ThemeName='theme-08';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-08: ' . $conn->connect_error;
+				print($error);
+				exit();
+			}
+			//**************** End Default Template theme-08 ****************//
+
+			//**************** Add Default Template theme-09 ****************//
+			$sql = "INSERT INTO {$username}_templates (ThemeName) VALUES ('theme-09');";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-09: ' . $conn->connect_error;
+				exit();
+			}
+			// theme-09 requires boxes 1-19
+			for($x = 1; $x < 20; $x++)
+			{
+				$sql = "UPDATE {$username}_templates
+						SET box".$x."=1, box".$x."width=20, box".$x."height=10, box".$x."border='0', box".$x."ln=1,
+							box".$x."align='L', box".$x."fill=0, box".$x."font='Arial'
+						WHERE ThemeName='theme-09';";
+				if(!$conn->query($sql))
+				{
+					$error = 'Error creating theme-09: ' . $conn->connect_error;
+					exit();
+				}
+			}
+			// set titles for sections in boxes 5 10 15
+			$sql = "UPDATE {$username}_templates
+					SET box5text='Experience', box10text='Skills', box15text='Education',
+						box5title=1, box10title=1, box15title=1
+					WHERE ThemeName='theme-09';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-09: ' . $conn->connect_error;
+				exit();
+			}
+			// set subtitles for sections in boxes 6 8 11 13
+			$sql = "UPDATE {$username}_templates
+					SET box6text='Work History', box8text='Research and Training', box11text='Certifications', box13text='Accreditations',
+						box6subtitle=1, box8subtitle=1, box11subtitle=1, box13subtitle=1
+					WHERE ThemeName='theme-09';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-09: ' . $conn->connect_error;
+				exit();
+			}
+			// set title/subtitle text size
+			$sql = "UPDATE {$username}_templates
+					SET box5size=15, box10size=15, box15size=15,
+						box6size=12, box8size=12, box11size=12, box13size=12
+					WHERE ThemeName='theme-09';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-09: ' . $conn->connect_error;
+				exit();
+			}
+			// set box texts
+			$sql = "UPDATE {$username}_templates
+					SET box2text='name', box3text='phone', box4text='email',
+						box7text='WorkHistory', box9text='Reasearch', box12text='Certs',
+						box14text='Accreds', box16text='University', box17text='Degree', box18text='Major', box19text='AcaPosition',
+						box7multi=1, box9multi=1, box12multi=1, box14multi=1, box19multi=1
+					WHERE ThemeName='theme-09';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-09: ' . $conn->connect_error;
+				exit();
+			}
+			// customizations for theme-09
+			$sql = "UPDATE {$username}_templates
+					SET box1color='#FF6600', box1fill=1, box1width=0,
+						box2size=24,
+						box2color='#EEEEEE', box2fill=1, box2width=0,
+						box3color='#EEEEEE', box3fill=1,
+						box4color='#EEEEEE', box4fill=1,
+						box3ln=0, box3width=90, box3move=90,
+						box4width=0,
+						box5style='B', box10style='B', box15style='B',
+						box6fontColor='#FF6600', box8fontColor='#FF6600', box11fontColor='#FF6600', box13fontColor='#FF6600'
+					WHERE ThemeName='theme-09';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-09: ' . $conn->connect_error;
+				print($error);
+				exit();
+			}
+			//**************** End Default Template theme-09 ****************//
+
+			//**************** Add Default Template theme-10 ****************//
+			$sql = "INSERT INTO {$username}_templates (ThemeName) VALUES ('theme-10');";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-10: ' . $conn->connect_error;
+				exit();
+			}
+			// theme-10 requires boxes 1-21
+			for($x = 1; $x < 22; $x++)
+			{
+				$sql = "UPDATE {$username}_templates
+						SET box".$x."=1, box".$x."width=20, box".$x."height=10, box".$x."border='0', box".$x."ln=1,
+							box".$x."align='L', box".$x."fill=0, box".$x."font='Arial'
+						WHERE ThemeName='theme-10';";
+				if(!$conn->query($sql))
+				{
+					$error = 'Error creating theme-10: ' . $conn->connect_error;
+					exit();
+				}
+			}
+			// set titles for sections in boxes 2 9 15 20
+			$sql = "UPDATE {$username}_templates
+					SET box2text='Personal Details', box9text='Education', box15text='Skills & Attributes', box20text='Work History',
+						box2title=1, box9title=1, box15title=1, box20title=1
+					WHERE ThemeName='theme-10';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-10: ' . $conn->connect_error;
+				exit();
+			}
+			// set subtitles for sections in boxes 3 5 7 16 18
+			$sql = "UPDATE {$username}_templates
+					SET box3text='Name', box5text='Phone', box7text='Email', 
+						box16text='Certifications', box18text='Accreditations',
+						box3subtitle=1, box5subtitle=1, box7subtitle=1, box16subtitle=1, box18subtitle=1
+					WHERE ThemeName='theme-10';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-10: ' . $conn->connect_error;
+				exit();
+			}
+			// set title/subtitle text size
+			$sql = "UPDATE {$username}_templates
+					SET box2size=15, box9size=15, box15size=15, box20size=15,
+						box3size=12, box5size=12, box7size=12, box16size=12, box18size=12
+					WHERE ThemeName='theme-10';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-10: ' . $conn->connect_error;
+				exit();
+			}
+			// set box texts
+			$sql = "UPDATE {$username}_templates
+					SET box1text='name', box4text='name', box6text='phone',
+						box8text='email', box10text='University', box11text='Degree',
+						box12text='Major', box13text='AcaPosition', box14text='Reasearch',
+						box17text='Certs', box19text='Accreds', box21text='WorkHistory',
+						box13multi=1, box14multi=1, box17multi=1, box19multi=1, box21multi=1
+					WHERE ThemeName='theme-10';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-10: ' . $conn->connect_error;
+				exit();
+			}
+			// customizations for theme-10
+			$sql = "UPDATE {$username}_templates
+					SET box1size=24, box1fontColor='#FF3838', box1style='B',
+						box2fontColor='#FF3838', box9fontColor='#FF3838', box15fontColor='#FF3838', box20fontColor='#FF3838',
+						box16fontColor='#FF3838', box18fontColor='#FF3838',
+						box2style='B', box9style='B', box15style='B', box20style='B',
+						box3style='B', box3size=10, box5style='B', box5size=10, box7style='B', box7size=10,
+						box3color='#EEEEEE', box3fill=1, box7color='#EEEEEE', box7fill=1,
+						box4color='#EEEEEE', box4fill=1, box8color='#EEEEEE', box8fill=1,
+						box3width=70, box3ln=0, box3move=70, box5width=70, box5ln=0, box5move=70, box7width=70, box7ln=0, box7move=70,
+						box4width=0, box8width=0,
+						box10color='#EEEEEE', box10fill=1, box11color='#EEEEEE', box11fill=1, box12color='#EEEEEE', box12fill=1,
+						box10width=0, box11width=0, box12width=0,
+						box14color='#EEEEEE', box14fill=1, box14width=0,
+						box17color='#EEEEEE', box17fill=1, box17width=0,
+						box21color='#EEEEEE', box21fill=1, box21width=0
+					WHERE ThemeName='theme-10';";
+			if(!$conn->query($sql))
+			{
+				$error = 'Error creating theme-10: ' . $conn->connect_error;
+				print($error);
+				exit();
+			}
+			//**************** End Default Template theme-10 ****************//
 
 			// Add a previous cv table for each user
 			$sql = "CREATE TABLE {$username}_previous_cv (

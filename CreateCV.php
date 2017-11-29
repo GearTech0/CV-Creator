@@ -82,6 +82,7 @@
         // set font/border color
         list($r, $g, $b) = sscanf($theme['box'.$x]['fontColor'], "#%02x%02x%02x");
         $pdf->SetTextColor($r,$g,$b);
+        list($r, $g, $b) = sscanf($theme['box'.$x]['borderColor'], "#%02x%02x%02x");
         $pdf->SetDrawColor($r,$g,$b);
         // create cell
         if($theme['box'.$x]['title'] || $theme['box'.$x]['subtitle'])
@@ -191,7 +192,7 @@
               'height' => $row['box'.$x.'height'],
               'text' => $row['box'.$x.'text'],
               'border' => $row['box'.$x.'border'],
-              //'borderPlace' => $row['box'.$x.'borderPlace'],
+              'borderColor' => $row['box'.$x.'borderColor'],
               'ln' => $row['box'.$x.'ln'],
               'align' => $row['box'.$x.'align'],
               'fill' => $row['box'.$x.'align'],
