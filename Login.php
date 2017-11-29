@@ -7,7 +7,7 @@
 <html>
 <head>
 	<title>CV Creation Software</title>
-	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="css/LoginPage.css">
 </head>
 <body>
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
@@ -40,7 +40,7 @@
 			}else
 			{
 				// no such account
-				$error = 'Incorrect username or password1';
+				$error = 'Incorrect username or password!';
 			}
 		}else
 		{
@@ -51,7 +51,7 @@
 		Username:<br>
 		<input type = "text" name = "username" required><br>
 		Password:<br>
-		<input type = "password" name = "pass" required>
+		<input type = "password" name = "pass" required><br>
 		<input type = "submit" name = "submit" value = "Submit">
 		<input type = "reset" value = "Clear">
 		<h4 class = "error"><?php echo $error; ?></h4>

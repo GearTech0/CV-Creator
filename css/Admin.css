@@ -1,0 +1,53 @@
+h1 {
+	color: black;
+	font-size: 2em;
+	padding-top: 10px;
+	font-family: Georgia;
+	text-align: center;
+	background-size: cover;
+	background-position: bottom center;
+	height: 100px;
+	width: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: black;
+	text-align: center;
+	background-color: white;
+	background-image: url(http://www.yoannbourse.com/ressources/design/teal/background.jpg);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* unvisited link */
+a:link {
+    color: black;
+	text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+	text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+}

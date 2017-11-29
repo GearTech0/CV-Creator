@@ -24,7 +24,7 @@
 <html>
 <head>
 	<title>CV Creation Software</title>
-	<link rel="stylesheet" href="css/homestyles.css">
+	<link rel="stylesheet" href="css/IndexPage.css">
 </head>
 <body>
 	<h1>CV Creation Software</h1>
