@@ -79,6 +79,10 @@
         // set cell color
         list($r, $g, $b) = sscanf($theme['box'.$x]['color'], "#%02x%02x%02x");
         $pdf->SetFillColor($r,$g,$b);
+        // set font/border color
+        list($r, $g, $b) = sscanf($theme['box'.$x]['fontColor'], "#%02x%02x%02x");
+        $pdf->SetTextColor($r,$g,$b);
+        $pdf->SetDrawColor($r,$g,$b);
         // create cell
         if($theme['box'.$x]['title'] || $theme['box'.$x]['subtitle'])
         {
@@ -97,6 +101,10 @@
           }
         }
         $pdf->Ln($theme['box'.$x]['padding']);
+        if($theme['box'.$x]['ln'] == 0 && $theme['box'.$x]['move'] != 0)
+        {
+          $pdf->Cell($theme['box'.$x]['move']);
+        }
       }
     }
 
@@ -183,6 +191,7 @@
               'height' => $row['box'.$x.'height'],
               'text' => $row['box'.$x.'text'],
               'border' => $row['box'.$x.'border'],
+              //'borderPlace' => $row['box'.$x.'borderPlace'],
               'ln' => $row['box'.$x.'ln'],
               'align' => $row['box'.$x.'align'],
               'fill' => $row['box'.$x.'align'],
@@ -193,6 +202,8 @@
               'title' => $row['box'.$x.'title'],
               'subtitle' => $row['box'.$x.'subtitle'],
               'multi' => $row['box'.$x.'multi'],
+              'move' => $row['box'.$x.'move'],
+              'fontColor' => $row['box'.$x.'fontColor'],
               'padding' => $row['box'.$x.'padding']
             ];
             $theme['box'.$x] = $temp;
