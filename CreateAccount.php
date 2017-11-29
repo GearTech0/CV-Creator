@@ -540,6 +540,7 @@
 						box1align='C', box2align='C', box3align='C',
 						box1width=0, box2width=0, box3width=0, box4width=0, box6width=0, box12width=0,
 						box4border='B', box6border='B', box12border='B',
+						box4borderColor='#39AAF1', box6borderColor='#39AAF1', box12borderColor='#39AAF1',
 						box10fontColor='#39AAF1', box13fontColor='#39AAF1', box15fontColor='#39AAF1',
 						box10borderColor='#39AAF1', box13borderColor='#39AAF1', box15borderColor='#39AAF1'
 					WHERE ThemeName='theme-06';";
