@@ -9,6 +9,9 @@
   *
   * $theme array specifications on how the PDF will look
   *	array(
+  *   title => array(
+  *     style => char
+  *   ),
   *		header => array(
   *			x => int,
   *			y => int,
@@ -40,48 +43,71 @@
   */
   function CreateCV($theme, $report)
   {
+    /* Underlining
+    $pdf->SetFont($theme['header']['font'], 'U', $theme['header']['fontsize'],'U');
+    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
+    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
+    */
+
+    /* Coloring
+    $pdf->SetFillColor(0,153,255);
+    $pdf->Cell(0,10,$report['name'],0,1,'C',1);
+    $pdf->Ln(12);
+    */
+
+    /* Each cell needs:
+    * width (if 0, extend to right margin)
+    * height
+    * text
+    * border (0 no border, 1 border)(L left, T top, R right, B bottom)
+    * ln (0 right, 1 next line, 2 below)
+    * align ('' left align, L left align, C center align, R right align)
+    * fill (true or false)
+    * color (hex value, 7 character varchar)
+    * font
+    * style ('U' underline, 'I' italics, 'B' bold)
+    * size
+    */
     $pdf = new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
-    $move = 20;
-    $textAreaW = 0;
-    $textW = 10;
-    $height = 5;
-    // Create Header if CV
-    $pdf->Cell($move);
-    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
-    $pdf->Cell($move);
-    $pdf->Cell($textW,$height,$report['name'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->Cell($textW,$height,$report['phone'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->Cell($textW,$height,$report['email'],0,1,'L');
-    $pdf->Ln(6);
-    $pdf->Cell($move);
-    $pdf->Cell(10,$height,'Employment History',0,1,'C');
-    $pdf->Cell($move);
-    $pdf->MultiCell($textAreaW,$height,$report['WorkHistory'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->MultiCell($textAreaW,$height,$report['AcaPosition'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->MultiCell($textAreaW,$height,$report['Reasearch'],0,1,'L');
-    $pdf->Ln(6);
-    $pdf->Cell($move);
-    $pdf->Cell(10,$height,'Education',0,1,'C');
-    $pdf->Cell($move);
-    $pdf->Cell($textW,$height,$report['University'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->Cell($textW,$height,$report['Degree'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->Cell($textW,$height,$report['Major'],0,1,'L');
-    $pdf->Ln(6);
-    $pdf->Cell($move);
-    $pdf->Cell(10,$height,'Professional Qualifications',0,1,'C');
-    $pdf->Cell($move);
-    $pdf->MultiCell($textAreaW,$height,$report['Certs'],0,1,'L');
-    $pdf->Cell($move);
-    $pdf->MultiCell($textAreaW,$height,$report['Accreds'],0,1,'L');
-
+    for($x = 1; $x < 31; $x++)
+    {
+      if($theme['box'.$x]['use'] == 1)
+      {
+        // set cell font
+        $pdf->SetFont($theme['box'.$x]['font'], $theme['box'.$x]['style'], $theme['box'.$x]['size']);
+        // set cell color
+        list($r, $g, $b) = sscanf($theme['box'.$x]['color'], "#%02x%02x%02x");
+        $pdf->SetFillColor($r,$g,$b);
+        // set font/border color
+        list($r, $g, $b) = sscanf($theme['box'.$x]['fontColor'], "#%02x%02x%02x");
+        $pdf->SetTextColor($r,$g,$b);
+        list($r, $g, $b) = sscanf($theme['box'.$x]['borderColor'], "#%02x%02x%02x");
+        $pdf->SetDrawColor($r,$g,$b);
+        // create cell
+        if($theme['box'.$x]['title'] || $theme['box'.$x]['subtitle'])
+        {
+          $pdf->Cell($theme['box'.$x]['width'],$theme['box'.$x]['height'],$theme['box'.$x]['text'],$theme['box'.$x]['border'],
+                  $theme['box'.$x]['ln'],$theme['box'.$x]['align'], $theme['box'.$x]['fill']);
+        }else
+        {
+          if($theme['box'.$x]['multi'])
+          {
+            $pdf->MultiCell(0,$theme['box'.$x]['height'],$report[$theme['box'.$x]['text']],$theme['box'.$x]['border'],
+                  $theme['box'.$x]['align'], $theme['box'.$x]['fill']);
+          }else
+          {
+            $pdf->Cell($theme['box'.$x]['width'],$theme['box'.$x]['height'],$report[$theme['box'.$x]['text']],$theme['box'.$x]['border'],
+                  $theme['box'.$x]['ln'],$theme['box'.$x]['align'], $theme['box'.$x]['fill']);
+          }
+        }
+        $pdf->Ln($theme['box'.$x]['padding']);
+        if($theme['box'.$x]['ln'] == 0 && $theme['box'.$x]['move'] != 0)
+        {
+          $pdf->Cell($theme['box'.$x]['move']);
+        }
+      }
+    }
 
     $pdf->Output();
   }
@@ -118,7 +144,6 @@
     if($result)
     {
       $error = 'Saved successfully';
-      $conn->close();
     }else
     {
       $error = 'Save failed';
@@ -141,36 +166,49 @@
     $sql = "SELECT * FROM `{$username}_templates` WHERE `ThemeName`='$themeName'";
     $result = $conn->query($sql);
 
+    /* Each cell needs:
+    * width (if 0, extend to right margin)
+    * height
+    * text
+    * border (0 no border, 1 border)(L left, T top, R right, B bottom)
+    * ln (0 right, 1 next line, 2 below)
+    * align ('' left align, L left align, C center align, R right align)
+    * fill (true or false)
+    * color (hex value, 7 character varchar)
+    * font
+    * style ('U' underline, 'I' italics, 'B' bold)
+    * size
+    */
     if($result->num_rows > 0)
     {
       while($row = $result->fetch_assoc()) {
         // Set theme information into theme array in respective positions
-        $theme = [
-          'header' => [
-            'x' => $row['header_x'],
-            'y' => $row['header_y'],
-            'color' => $row['header_color'],
-            'backgroundcolor' => $row['header_bgcolor'],
-            'fontsize' => $row['header_fontsize'],
-            'font' => $row['header_font']
-          ],
-          'body' => [
-            'x' => $row['body_x'],
-            'y' => $row['body_y'],
-            'color' => $row['body_color'],
-            'backgroundcolor' => $row['body_bgcolor'],
-            'fontsize' => $row['body_fontsize'],
-            'font' => $row['body_font']
-          ],
-          'footer' => [
-            'x' => $row['footer_x'],
-            'y' => $row['footer_y'],
-            'color' => $row['footer_color'],
-            'backgroundcolor' => $row['footer_bgcolor'],
-            'fontsize' => $row['footer_fontsize'],
-            'font' => $row['footer_font']
-          ]
-        ];
+        $theme = [];
+        for($x = 1; $x < 31; $x++)
+        {
+            $temp = [
+              'use' => $row['box'.$x],
+              'width' => $row['box'.$x.'width'],
+              'height' => $row['box'.$x.'height'],
+              'text' => $row['box'.$x.'text'],
+              'border' => $row['box'.$x.'border'],
+              'borderColor' => $row['box'.$x.'borderColor'],
+              'ln' => $row['box'.$x.'ln'],
+              'align' => $row['box'.$x.'align'],
+              'fill' => $row['box'.$x.'align'],
+              'color' => $row['box'.$x.'color'],
+              'font' => $row['box'.$x.'font'],
+              'style' => $row['box'.$x.'style'],
+              'size' => $row['box'.$x.'size'],
+              'title' => $row['box'.$x.'title'],
+              'subtitle' => $row['box'.$x.'subtitle'],
+              'multi' => $row['box'.$x.'multi'],
+              'move' => $row['box'.$x.'move'],
+              'fontColor' => $row['box'.$x.'fontColor'],
+              'padding' => $row['box'.$x.'padding']
+            ];
+            $theme['box'.$x] = $temp;
+        }
       }
     }
     else
