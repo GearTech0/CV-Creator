@@ -130,11 +130,27 @@
 						*/
 						$sql = "SELECT `ThemeName` FROM " . $_SESSION['login_user'] . "_templates";
 						$result = $conn->query($sql);
-
+						$sqlGrabCVTheme = "SELECT `Theme` FROM " . $_SESSION['login_user'] . "_previous_cv
+															WHERE CVName = '" . $_SESSION['currentCV'] . "';";
+						$resultGrabCVTheme = $conn->query($sqlGrabCVTheme);
+						$curCVTheme = '';
+						if($resultGrabCVTheme->num_rows > 0)
+						{
+							while($row = $resultGrabCVTheme->fetch_assoc())
+							{
+								$curCVTheme = $row['Theme'];
+							}
+						}
 						if($result->num_rows > 0)
 						{
 							while($row = $result->fetch_assoc()) {
-								echo '<input type="radio" name="template" value="' . $row['ThemeName'] . '"checked>' . $row['ThemeName'] . '<br>';
+								if($row['ThemeName'] == $curCVTheme)
+								{
+									echo '<input type="radio" name="template" value="' . $row['ThemeName'] . '"checked>' . $row['ThemeName'] . '<br>';
+								}else
+								{
+									echo '<input type="radio" name="template" value="' . $row['ThemeName'] . '">' . $row['ThemeName'] . '<br>';
+								}
 							}
 						}
 					?><br>
