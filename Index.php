@@ -10,7 +10,7 @@
         {
             $sql = "CREATE TABLE users (
                     UserID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    Username VARCHAR(15) NOT NULL,
+                    Username VARCHAR(15) NOT NULL UNIQUE,
                     Password VARCHAR(15) NOT NULL,
                     Admin TINYINT(1))";
             if($conn->query($sql) != TRUE)
