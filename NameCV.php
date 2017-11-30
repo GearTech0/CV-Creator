@@ -11,7 +11,7 @@
 <html>
 <head>
 	<title>CV Creation Software - Name CV</title>
-	<link rel="stylesheet" href="#">
+	<link rel="stylesheet" href="css/NameCVPage.css">
 </head>
 <body>
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>

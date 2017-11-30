@@ -1,6 +1,6 @@
 <?php
   session_start();
-  require "includes/fpdf181/fpdf.php";	// Grab PDF generation library
+  require "includes/fpdf181/fpdf.php";  // Grab PDF generation library
   $error = "";
   /**
   * CreateCV
@@ -8,38 +8,38 @@
   *
   *
   * $theme array specifications on how the PDF will look
-  *	array(
+  * array(
   *   title => array(
   *     style => char
   *   ),
-  *		header => array(
-  *			x => int,
-  *			y => int,
-  *			color => string, //hexcode
-  *			backgroundcolor => string, //hexcode
-  *			fontsize => int
-  *		),
-  *		body => array(
-  *			x => int,
-  *			y => int,
-  *			color => string, //hexcode
-  *			backgroundcolor => string, //hexcode
-  *			fontsize => int
-  *		),
-  *		footer => array(
-  *			x => int,
-  *			y => int,
-  *			color => string, //hexcode
-  *			backgroundcolor => string, //hexcode
-  *			fontsize => int
-  *		)
-  *	)
+  *   header => array(
+  *     x => int,
+  *     y => int,
+  *     color => string, //hexcode
+  *     backgroundcolor => string, //hexcode
+  *     fontsize => int
+  *   ),
+  *   body => array(
+  *     x => int,
+  *     y => int,
+  *     color => string, //hexcode
+  *     backgroundcolor => string, //hexcode
+  *     fontsize => int
+  *   ),
+  *   footer => array(
+  *     x => int,
+  *     y => int,
+  *     color => string, //hexcode
+  *     backgroundcolor => string, //hexcode
+  *     fontsize => int
+  *   )
+  * )
   * $report array information to write to PDF
-  *	array(
-  *		name => string,
-  *		number => string,
-  *		email => string
-  *	)
+  * array(
+  *   name => string,
+  *   number => string,
+  *   email => string
+  * )
   */
   function CreateCV($theme, $report)
   {
@@ -135,10 +135,11 @@
     $major = $report['Major'];
     $certs = $report['Certs'];
     $accreds = $report['Accreds'];
+    $template = $report['template'];
     // Update database entry with inputted information
     $sql = "UPDATE `{$username}_previous_cv` 
             SET Name='$name', Phone='$phone', Email='$email', WorkHistory='$work', Academic='$acad', Research='$research',
-                University='$uni', Degree='$degree', Major='$major', Certs='$certs', Accreds='$accreds'
+                University='$uni', Degree='$degree', Major='$major', Certs='$certs', Accreds='$accreds', Theme='$template'
             WHERE CVName='$cvname'";
     $result = $conn->query($sql);
     if($result)
@@ -274,8 +275,37 @@
 
       'Certs' => htmlspecialchars($_POST['Certs']),
       'Accreds' => htmlspecialchars($_POST['Accreds']),
+      'template' => htmlspecialchars($_POST['template'])
     ];
     SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
     header("Location: CVInfoInput.php");
+  }else if(isset($_POST['create']))
+  {
+    // user is creating a pdf that they have saved
+    require "Config.PHP";
+    $table = $_SESSION['login_user'] . '_previous_cv';
+    $sql = "SELECT * FROM `" . $table . "` WHERE CVName = '" . $_SESSION['currentCV'] . "'";
+    $result = $conn->query($sql);
+    if($result)
+    {
+      while($row = $result->fetch_assoc())
+      {
+        $report = [
+          'name' => $row['Name'],
+          'phone' => $row['Phone'],
+          'email' => $row['Email'],
+          'WorkHistory' => $row['WorkHistory'],
+          'AcaPosition' => $row['Academic'],
+          'Reasearch' => $row['Research'],
+          'University' => $row['University'],
+          'Degree' => $row['Degree'],
+          'Major' => $row['Major'],
+          'Certs' => $row['Certs'],
+          'Accreds' => $row['Accreds']
+        ];
+        $theme = GetTheme($row['Theme'], $_SESSION['login_user']);
+        CreateCV($theme, $report);
+      }
+    }
   }
 ?>

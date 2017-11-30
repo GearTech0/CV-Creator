@@ -16,7 +16,7 @@
 <html>
 <head>
 	<title>CV Creation Software - Input</title>
-	<link rel="stylesheet" href="css/inputPage.css">
+	<link rel="stylesheet" href="css/InfoInput.css">
 </head>
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
 	<h2>CV Information Input</h2>

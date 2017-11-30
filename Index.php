@@ -10,7 +10,7 @@
         {
             $sql = "CREATE TABLE users (
                     UserID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    Username VARCHAR(15) NOT NULL,
+                    Username VARCHAR(15) NOT NULL UNIQUE,
                     Password VARCHAR(15) NOT NULL,
                     Admin TINYINT(1))";
             if($conn->query($sql) != TRUE)
@@ -24,13 +24,10 @@
 <html>
 <head>
 	<title>CV Creation Software</title>
-	<link rel="stylesheet" href="css/homestyles.css">
+	<link rel="stylesheet" href="css/IndexPage.css">
 </head>
 <body>
 	<h1>CV Creation Software</h1>
-    <?php if(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
-        <a href="AdminControls.PHP"><h4>Admin Tools</h4></a>
-    <?php endif; ?>
     <?php if(isset($_SESSION['logged_in'])): ?>
         <?php echo "<p>Logged in as " . $_SESSION['login_user'] . "</p>"; ?>
     <?php else: ?>
@@ -38,6 +35,9 @@
         <a href="CreateAccount.PHP"><h3>Sign Up</h3></a>
     <?php endif; ?>
     <ul>
+        <?php if(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
+        <a href="AdminControls.PHP"><li>Admin Tools</li></a>
+        <?php endif; ?>
         <a href="TemplatePreview.PHP">
             <li>View Sample Templates</li>
         </a>
