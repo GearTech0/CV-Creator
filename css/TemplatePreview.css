@@ -35,17 +35,6 @@ img {
 	height: auto;
 }
 
-td {
-    max-width: 100%;
-    height: auto;
-	display: block;
-	text-align: center;
-	overflow: auto;
-	padding: 70px 0;
-	text-align: center;
-	display: inline-block;
-	vertical-align: middle;
-}
 
 /* unvisited link */
 a:link {
