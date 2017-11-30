@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<?php
+<?php 
 	session_set_cookie_params(0);
-	session_start();
+	session_start(); 
 ?>
 <html>
 <head>
@@ -61,7 +61,7 @@
 								box" . $x . "width INT DEFAULT 0,
 								box" . $x . "height INT DEFAULT 0,
 								box" . $x . "text VARCHAR(100) DEFAULT '' NOT NULL,
-								box" . $x . "border VARCHAR(4) DEFAULT '0',
+								box" . $x . "border VARCHAR(4) DEFAULT '',
 								box" . $x . "borderColor VARCHAR(7) DEFAULT '#FFFFFF',
 								box" . $x . "ln INT DEFAULT 1,
 								box" . $x . "align CHAR(1) DEFAULT 'L',
@@ -117,7 +117,7 @@
 				}
 				// set subtitles for sections in boxes 2, 4, 6, 9, 11, 13, 16, 18, 20, 23, 25
 				$sql = "UPDATE {$username}_templates
-						SET box2text='Name', box4text='Phone Number', box6text='Email', box9text='Work History',
+						SET box2text='Name', box4text='Phone Number', box6text='Email', box9text='Work History', 
 						box11text='Academic Position', box13text='Research and Training', box16text='University Attended',
 						box18text='Degree', box20text='Major', box23text='Certifications', box25text='Accreditations',
 						box2subtitle=1, box4subtitle=1, box6subtitle=1, box9subtitle=1, box11subtitle=1, box13subtitle=1, box16subtitle=1, box18subtitle=1,
@@ -131,7 +131,7 @@
 				// set box texts
 				$sql = "UPDATE {$username}_templates
 						SET box3text='name', box5text='phone', box7text='email',
-							box10text='WorkHistory', box12text='AcaPosition', box14text='Reasearch',
+							box10text='WorkHistory', box12text='AcaPosition', box14text='Reasearch', 
 							box17text='University', box19text='Degree', box21text='Major',
 							box24text='Certs', box26text='Accreds',
 							box10multi=1, box12multi=1, box14multi=1, box24multi=1, box26multi=1
@@ -187,8 +187,8 @@
 				}
 				// set subtitles for sections in boxes 6, 8, 10, 17, 19
 				$sql = "UPDATE {$username}_templates
-						SET box6text='Work History', box8text='Academic Position', box10text='Research and Training',
-							box17text='Certifications', box19text='Accreditations',
+						SET box6text='Work History', box8text='Academic Position', box10text='Research and Training', 
+							box17text='Certifications', box19text='Accreditations', 
 							box6subtitle=1, box8subtitle=1, box10subtitle=1, box17subtitle=1, box19subtitle=1
 						WHERE ThemeName='theme-02';";
 				if(!$conn->query($sql))
@@ -210,7 +210,7 @@
 				// set box texts
 				$sql = "UPDATE {$username}_templates
 						SET box1text='name', box3text='phone', box4text='email',
-							box7text='WorkHistory', box9text='AcaPosition', box11text='Reasearch',
+							box7text='WorkHistory', box9text='AcaPosition', box11text='Reasearch', 
 							box13text='University', box14text='Degree', box15text='Major',
 							box18text='Certs', box20text='Accreds',
 							box7multi=1, box9multi=1, box11multi=1, box18multi=1, box20multi=1
@@ -231,7 +231,7 @@
 				{
 					$error = 'Error creating theme-02: ' . $conn->connect_error;
 					exit();
-				}
+				}	
 				//**************** End Default Template theme-02 ****************//
 
 				//**************** Add Default Template theme-03 ****************//
@@ -267,8 +267,8 @@
 				}
 				// set subtitles for sections in boxes 6, 8, 10, 17, 19
 				$sql = "UPDATE {$username}_templates
-						SET box6text='Work History', box8text='Academic Position', box10text='Research and Training',
-							box17text='Certifications', box19text='Accreditations',
+						SET box6text='Work History', box8text='Academic Position', box10text='Research and Training', 
+							box17text='Certifications', box19text='Accreditations', 
 							box6subtitle=1, box8subtitle=1, box10subtitle=1, box17subtitle=1, box19subtitle=1
 						WHERE ThemeName='theme-03';";
 				if(!$conn->query($sql))
@@ -290,7 +290,7 @@
 				// set box texts
 				$sql = "UPDATE {$username}_templates
 						SET box1text='name', box3text='phone', box4text='email',
-							box7text='WorkHistory', box9text='AcaPosition', box11text='Reasearch',
+							box7text='WorkHistory', box9text='AcaPosition', box11text='Reasearch', 
 							box13text='University', box14text='Degree', box15text='Major',
 							box18text='Certs', box20text='Accreds',
 							box7multi=1, box9multi=1, box11multi=1, box18multi=1, box20multi=1
@@ -339,7 +339,7 @@
 				}
 				// set titles for sections in boxes 4, 6, 8, 10, 14, 16
 				$sql = "UPDATE {$username}_templates
-						SET box4text='Work History', box8text='Research and Training', box14text='Academic Position',
+						SET box4text='Work History', box8text='Research and Training', box14text='Academic Position', 
 							box6text='Certifications', box10text='Education', box16text='Accreditations',
 							box4title=1, box6title=1, box8title=1, box10title=1, box14title=1, box16title=1,
 							box4padding=2, box6padding=2, box8padding=2, box10padding=2, box14padding=2, box16padding=2
@@ -362,7 +362,7 @@
 				$sql = "UPDATE {$username}_templates
 						SET box1text='name', box2text='email', box3text='phone',
 							box5text='WorkHistory', box7text='Certs', box9text='Reasearch',
-							box11text='University', box12text='Degree', box13text='Major',
+							box11text='University', box12text='Degree', box13text='Major', 
 							box15text='AcaPosition', box17text='Accreds',
 							box5multi=1, box7multi=1, box9multi=1, box15multi=1, box17multi=1
 						WHERE ThemeName='theme-04';";
@@ -409,7 +409,7 @@
 				}
 				// set titles for sections in boxes 4, 6, 8, 10, 14, 16
 				$sql = "UPDATE {$username}_templates
-						SET box4text='Work History', box8text='Research and Training', box14text='Academic Position',
+						SET box4text='Work History', box8text='Research and Training', box14text='Academic Position', 
 							box6text='Certifications', box10text='Education', box16text='Accreditations',
 							box4title=1, box6title=1, box8title=1, box10title=1, box14title=1, box16title=1,
 							box4padding=2, box6padding=2, box8padding=2, box10padding=2, box14padding=2, box16padding=2
@@ -432,7 +432,7 @@
 				$sql = "UPDATE {$username}_templates
 						SET box1text='name', box2text='email', box3text='phone',
 							box5text='WorkHistory', box7text='Certs', box9text='Reasearch',
-							box11text='University', box12text='Degree', box13text='Major',
+							box11text='University', box12text='Degree', box13text='Major', 
 							box15text='AcaPosition', box17text='Accreds',
 							box5multi=1, box7multi=1, box9multi=1, box15multi=1, box17multi=1
 						WHERE ThemeName='theme-05';";
@@ -443,7 +443,7 @@
 				}
 				// customizations for theme-05
 				$sql = "UPDATE {$username}_templates
-						SET box1color='#9A7045', box2color='#9A7045', box3color='#9A7045', box4color='#9A7045', box6color='#9A7045', box8color='#9A7045',
+						SET box1color='#9A7045', box2color='#9A7045', box3color='#9A7045', box4color='#9A7045', box6color='#9A7045', box8color='#9A7045', 
 							box10color='#9A7045', box14color='#9A7045', box16color='#9A7045',
 							box1fill=1, box2fill=1, box3fill=1, box4fill=1, box6fill=1, box8fill=1, box10fill=1, box14fill=1, box16fill=1,
 							box1width=0, box2width=0, box3width=0,
@@ -506,7 +506,7 @@
 				}
 				// set title/subtitle text size
 				$sql = "UPDATE {$username}_templates
-						SET box4size=14, box6size=14, box12size=14,
+						SET box4size=14, box6size=14, box12size=14, 
 						box10size=12, box13size=12, box15size=12
 						WHERE ThemeName='theme-06';";
 				if(!$conn->query($sql))
@@ -578,7 +578,7 @@
 				}
 				// set title/subtitle text size
 				$sql = "UPDATE {$username}_templates
-						SET box2size=14, box5size=14, box10size=14, box12size=14
+						SET box2size=14, box5size=14, box10size=14, box12size=14 
 						WHERE ThemeName='theme-07';";
 				if(!$conn->query($sql))
 				{
@@ -813,7 +813,7 @@
 				}
 				// set subtitles for sections in boxes 3 5 7 16 18
 				$sql = "UPDATE {$username}_templates
-						SET box3text='Name', box5text='Phone', box7text='Email',
+						SET box3text='Name', box5text='Phone', box7text='Email', 
 							box16text='Certifications', box18text='Accreditations',
 							box3subtitle=1, box5subtitle=1, box7subtitle=1, box16subtitle=1, box18subtitle=1
 						WHERE ThemeName='theme-10';";
