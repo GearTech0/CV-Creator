@@ -19,8 +19,10 @@ h3
 
 li
     { 
-	  list-style-type: none;
-      color: black; 
+		list-style-type: none;
+		color: black; 
+		width: 70%;
+		margin: 0 auto;
     }
 	
 ul {
