@@ -126,7 +126,7 @@
 					<?php
 						require "Config.PHP";
 						/**
-						* List all of the templates the user has in this database
+						* List all of the custom templates the user has in this database
 						*/
 						$sql = "SELECT `ThemeName` FROM " . $_SESSION['login_user'] . "_templates";
 						$result = $conn->query($sql);
@@ -154,7 +154,6 @@
 							}
 						}
 					?><br>
-					<input type="checkbox" name="pdfChoose" value="Download as PDF?" checked>Download CV as PDF?<br><br>
 					<input type="submit" name="save" value="Save">
 					<input type="submit" name="submit" value="Create">
 				</form>

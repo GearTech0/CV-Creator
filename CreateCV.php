@@ -11,18 +11,6 @@
   */
   function CreateCV($theme, $report)
   {
-    /* Underlining
-    $pdf->SetFont($theme['header']['font'], 'U', $theme['header']['fontsize'],'U');
-    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
-    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
-    */
-
-    /* Coloring
-    $pdf->SetFillColor(0,153,255);
-    $pdf->Cell(0,10,$report['name'],0,1,'C',1);
-    $pdf->Ln(12);
-    */
-
     /* Each cell needs:
     * width (if 0, extend to right margin)
     * height
@@ -35,6 +23,12 @@
     * font
     * style ('U' underline, 'I' italics, 'B' bold)
     * size
+    * title (1 for title, 0 for not)
+    * subtitle (1 for subtitle, 0 for not)
+    * multi (1 for multi, 0 for not)
+    * move (value/10 cm moved to the right of the current spot)
+    * fontColor
+    * padding
     */
     $pdf = new FPDF();
     $pdf->AddPage();
@@ -147,6 +141,12 @@
     * font
     * style ('U' underline, 'I' italics, 'B' bold)
     * size
+    * title (1 for title, 0 for not)
+    * subtitle (1 for subtitle, 0 for not)
+    * multi (1 for multi, 0 for not)
+    * move (value/10 cm moved to the right of the current spot)
+    * fontColor
+    * padding
     */
     if($result->num_rows > 0)
     {
@@ -218,11 +218,9 @@
       'Certs' => htmlspecialchars($_POST['Certs']),
       'Accreds' => htmlspecialchars($_POST['Accreds']),
 
-      'template' => htmlspecialchars($_POST['template']),
-      'pdfChoose' => htmlspecialchars($_POST['pdfChoose'])
+      'template' => htmlspecialchars($_POST['template'])
     ];
 
-    //if($_POST['pdfchoose'])
     CreateCV($theme, $report);
 
     SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
