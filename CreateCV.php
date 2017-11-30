@@ -7,54 +7,10 @@
   * Writes $report information .PDF based on $theme specifications
   *
   *
-  * $theme array specifications on how the PDF will look
-  * array(
-  *   title => array(
-  *     style => char
-  *   ),
-  *   header => array(
-  *     x => int,
-  *     y => int,
-  *     color => string, //hexcode
-  *     backgroundcolor => string, //hexcode
-  *     fontsize => int
-  *   ),
-  *   body => array(
-  *     x => int,
-  *     y => int,
-  *     color => string, //hexcode
-  *     backgroundcolor => string, //hexcode
-  *     fontsize => int
-  *   ),
-  *   footer => array(
-  *     x => int,
-  *     y => int,
-  *     color => string, //hexcode
-  *     backgroundcolor => string, //hexcode
-  *     fontsize => int
-  *   )
-  * )
-  * $report array information to write to PDF
-  * array(
-  *   name => string,
-  *   number => string,
-  *   email => string
-  * )
+  * 
   */
   function CreateCV($theme, $report)
   {
-    /* Underlining
-    $pdf->SetFont($theme['header']['font'], 'U', $theme['header']['fontsize'],'U');
-    $pdf->Cell(10,$height,'Personal Information',0,1,'C');
-    $pdf->SetFont($theme['header']['font'], '', $theme['header']['fontsize']);
-    */
-
-    /* Coloring
-    $pdf->SetFillColor(0,153,255);
-    $pdf->Cell(0,10,$report['name'],0,1,'C',1);
-    $pdf->Ln(12);
-    */
-
     /* Each cell needs:
     * width (if 0, extend to right margin)
     * height
@@ -67,6 +23,12 @@
     * font
     * style ('U' underline, 'I' italics, 'B' bold)
     * size
+    * title (1 for title, 0 for not)
+    * subtitle (1 for subtitle, 0 for not)
+    * multi (1 for multi, 0 for not)
+    * move (value/10 cm moved to the right of the current spot)
+    * fontColor
+    * padding
     */
     $pdf = new FPDF();
     $pdf->AddPage();
@@ -137,7 +99,7 @@
     $accreds = $report['Accreds'];
     $template = $report['template'];
     // Update database entry with inputted information
-    $sql = "UPDATE `{$username}_previous_cv` 
+    $sql = "UPDATE `{$username}_previous_cv`
             SET Name='$name', Phone='$phone', Email='$email', WorkHistory='$work', Academic='$acad', Research='$research',
                 University='$uni', Degree='$degree', Major='$major', Certs='$certs', Accreds='$accreds', Theme='$template'
             WHERE CVName='$cvname'";
@@ -179,6 +141,12 @@
     * font
     * style ('U' underline, 'I' italics, 'B' bold)
     * size
+    * title (1 for title, 0 for not)
+    * subtitle (1 for subtitle, 0 for not)
+    * multi (1 for multi, 0 for not)
+    * move (value/10 cm moved to the right of the current spot)
+    * fontColor
+    * padding
     */
     if($result->num_rows > 0)
     {
@@ -250,11 +218,9 @@
       'Certs' => htmlspecialchars($_POST['Certs']),
       'Accreds' => htmlspecialchars($_POST['Accreds']),
 
-      'template' => htmlspecialchars($_POST['template']),
-      'pdfChoose' => htmlspecialchars($_POST['pdfChoose'])
+      'template' => htmlspecialchars($_POST['template'])
     ];
 
-    //if($_POST['pdfchoose'])
     CreateCV($theme, $report);
 
     SaveCVInformation($report, $_SESSION['login_user'], $_SESSION['currentCV']);
