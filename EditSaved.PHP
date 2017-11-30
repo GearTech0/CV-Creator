@@ -39,13 +39,17 @@
 			{
 				while($row = $result->fetch_assoc()) {
 					echo '<input type="radio" name="cv" value="' . $row['CVName'] . '"checked>' . $row['CVName'] . '<br>';
+          echo '<br>';
+        	echo '<input type="submit" name="submit" value="Edit Selected">';
 				}
+			}else
+      {
+			  echo '<h4>You have no CVs, <a href="NameCV.php">create one</a></h4>';
 			}
 
 			$conn->close();
     	?>
-    	<br>
-    	<input type="submit" name="submit" value="Edit Selected">
+
 	</form>
 </body>
 </html>
