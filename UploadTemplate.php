@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-US">
 <?php
     session_set_cookie_params(0);
@@ -41,9 +41,80 @@
 				exit();
 			}else
 			{
-				if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
+                $filename = explode(".", $target_file)[0].date("dYHis").".docx";
+				if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $filename))
 				{
-					$error = basename($_FILES["fileToUpload"]["name"]) . ' uploaded successfully.';
+                    require "docxtotext.php";
+                    require "Config.PHP";
+
+                    $docObj = new Doc2Txt($filename);
+                    $docText = $docObj->convertToText();
+
+                    // Tracking Variables
+                    $inside = false;
+                    $inBox = false;
+                    $setName = false;
+                    $setValue = false;
+                    $d = false;
+                    $colName = "";
+                    $value = "";
+                    $colValue = "";
+                    $template = [];
+
+                    for($i=0;$i<strlen($docText);$i++)
+                    {
+                        echo $docText{$i};
+                        switch($docText{$i})
+                        {
+                            case '@':
+                                if(!$inside)
+                                    $inside = $setName = true;
+                                else if($setValue)
+                                {
+                                    $setValue = false;
+                                    $colValue = $value;
+                                    $value = "";
+
+                                    $template[$colName] = $colValue;
+                                }
+                                break;
+                            case '$':
+                                // Set respective variable
+                                if($setName)
+                                {
+                                    $setName = false;
+                                    $colName = utf8_encode($value);
+                                    $setValue = true;
+                                    $value = "";
+                                }else{
+                                    $inside = $setName = $setValue = $d = false;
+                                }
+                                break;
+                            default:
+                                if($inside)
+                                    $value .= $docText{$i};
+                                break;
+                        }
+                    }
+
+                    $keys = "";
+                    $values = "";
+                    for($template as $key => $value)
+                    {
+                        $keys .= $key . ",";
+                        if(intval($value))
+                            $values .= $value . ",";
+                        else
+                            $values .= '"' . $value . '",';
+                    }
+                    $keys{strlen($keys)-1} = '';
+                    $values{strlen($values)-1} = '';
+
+                    $sql = "INSERT INTO " . $_SESSION['login_user'] . "_templates (" . $keys . ") VALUES (" . $values . ");";
+                    if($conn->query($sql))
+                        $error = $filename . ' uploaded successfully. ';
+                    else
+                        $error = "Error sending template to database.";
 				}else
 				{
 					$error = 'Upload failed';
