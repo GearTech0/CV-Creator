@@ -11,14 +11,13 @@
 <html>
 <head>
 	<title>CV Creation Software</title>
-	<link rel="stylesheet" href="css/homestyles.css">
+	<link rel="stylesheet" href="css/ViewSavedPage.css">
 </head>
 <body>
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
     <h2>Edit Saved CV</h2>
     <h3>Your saved CVs:</h3>
     <?php
-    	// need to implement getting selected radio value and setting SESSION variable
     	if(isset($_POST['submit']))
     	{
     		$selectedCV = $_POST['cv'];

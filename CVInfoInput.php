@@ -16,7 +16,7 @@
 <html>
 <head>
 	<title>CV Creation Software - Input</title>
-	<link rel="stylesheet" href="css/inputPage.css">
+	<link rel="stylesheet" href="css/CVInfoInput.css">
 </head>
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
 	<h2>CV Information Input</h2>
@@ -75,26 +75,50 @@
 					<table>
 						<tr>
 							<td>
-			            		<img src="images/placeholder.jpg" alt="template1">
+			            		<img src="images/theme-01.jpg" alt="template1">
 			            		<figcaption>Template 1</figcaption>
 			        		</td>
 							<td>
-			            		<img src="images/placeholder.jpg" alt="template2">
+			            		<img src="images/theme-02.jpg" alt="template2">
 			            		<figcaption>Template 2</figcaption>
 							</td>
 							<td>
-			            		<img src="images/placeholder.jpg" alt="template3">
+			            		<img src="images/theme-03.jpg" alt="template3">
 			            		<figcaption>Template 3</figcaption>
 							</td>
 						</tr>
 						<tr>
 							<td>
-			            		<img src="images/placeholder.jpg" alt="template4">
+			            		<img src="images/theme-04.jpg" alt="template4">
 			            		<figcaption>Template 4</figcaption>
 							</td>
 							<td>
-			            		<img src="images/placeholder.jpg" alt="template5">
+			            		<img src="images/theme-05.jpg" alt="template5">
 			            		<figcaption>Template 5</figcaption>
+							</td>
+							<td>
+			            		<img src="images/theme-06.jpg" alt="template6">
+			            		<figcaption>Template 6</figcaption>
+							</td>
+						</tr>
+						<tr>
+							<td>
+			            		<img src="images/theme-07.jpg" alt="template7">
+			            		<figcaption>Template 7</figcaption>
+							</td>
+							<td>
+			            		<img src="images/theme-08.jpg" alt="template8">
+			            		<figcaption>Template 8</figcaption>
+							</td>
+							<td>
+			            		<img src="images/theme-09.jpg" alt="template9">
+			            		<figcaption>Template 9</figcaption>
+							</td>
+						</tr>
+						<tr>
+							<td>
+			            		<img src="images/theme-10.jpg" alt="template10">
+			            		<figcaption>Template 10</figcaption>
 							</td>
 						</tr>
 					</table>
