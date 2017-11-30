@@ -31,18 +31,24 @@
 				$_SESSION['login_user'] = $username;
 				$_SESSION['logged_in'] = TRUE;
 				/* Each cell needs:
-				*	width (if 0, extend to right margin)
-				*	height
-				*	text
-				*	border (0 no border, 1 border)(L left, T top, R right, B bottom)
-				*	ln (0 right, 1 next line, 2 below)
-				*	align ('' left align, L left align, C center align, R right align)
-				*	fill (true or false)
-				* 	color (hex value, 7 character varchar)
-				*	font
-				*	style ('U' underline, 'I' italics, 'B' bold)
-				*	size
-				*/
+		    * width (if 0, extend to right margin)
+		    * height
+		    * text
+		    * border (0 no border, 1 border)(L left, T top, R right, B bottom)
+		    * ln (0 right, 1 next line, 2 below)
+		    * align ('' left align, L left align, C center align, R right align)
+		    * fill (true or false)
+		    * color (hex value, 7 character varchar)
+		    * font
+		    * style ('U' underline, 'I' italics, 'B' bold)
+		    * size
+		    * title (1 for title, 0 for not)
+		    * subtitle (1 for subtitle, 0 for not)
+		    * multi (1 for multi, 0 for not)
+		    * move (value/10 cm moved to the right of the current spot)
+		    * fontColor
+		    * padding
+		    */
 				// Add a template table for each user
 				$sql = "CREATE TABLE {$username}_templates (
 					ThemeName VARCHAR(15) PRIMARY KEY
@@ -52,7 +58,6 @@
 					$error = 'Error creating theme table: ' . $conn->connect_error;
 					exit();
 				}
-				// box" . $x . "borderPlace VARCHAR(4) DEFAULT '',
 				// add boxes and box variables
 				for($x = 1; $x < 31; $x++)
 				{

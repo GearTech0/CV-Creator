@@ -68,24 +68,27 @@
         * No parameters
         * No return values
         **/
-        // this code is redundant - will be changed
-        /*
         if(isset($_SESSION['login_user']))
         {
-            echo "<h3>" . $_SESSION['login_user'] . " uploaded custom templates:</h3>";
-            $target_dir = "uploads/" . $_SESSION['login_user'];
-            if(!file_exists($target_dir))
-            {
-                mkdir($target_dir, 0777, true);
+          require("Config.php");
+          $sql = "SELECT `ThemeName` FROM " . $_SESSION['login_user'] . "_templates";
+          $result = $conn->query($sql);
+
+          if($result->num_rows > 0)
+          {
+            echo '<h3>Your uploaded templates:</h3>';
+            $themes = array("theme-01", "theme-02", "theme-03", "theme-04",
+                            "theme-05", "theme-06", "theme-07", "theme-08",
+                            "theme-09", "theme-10");
+
+            while($row = $result->fetch_assoc()) {
+              if(!in_array($row['ThemeName'], $themes))
+              {
+                echo '<p>' . $row['ThemeName'] . '</p><br>';
+              }
             }
-            echo "<ul>";
-            foreach(glob($target_dir.'/*.docx') as $file)
-            {
-                echo "<li>" . basename($file) . "</li>";
-            }
-            echo "</ul>";
+          }
         }
-        */
     ?>
     <h3>Have your own template? <a href="UploadTemplate.PHP">Upload it here</a></h3>
 </body>
