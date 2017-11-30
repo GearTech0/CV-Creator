@@ -3,48 +3,11 @@ h1 {
 	font-size: 2em;
 	padding-top: 10px;
 	font-family: Georgia;
-	line-height: 200%;
 	text-align: center;
 	background-size: cover;
 	background-position: bottom center;
 	height: 100px;
 	width: 100%;
-}
-
-h3
-    {
-      color: black; 
-
-    }
-
-li
-    { 
-		list-style-type: none;
-		color: black; 
-		width: 70%;
-		margin: 0 auto;
-	}
-
-h4 {
-	text-align:center;
-}
-
-li
-    { 
-	  list-style-type: none;
-      color: black; 
-    }
-	
-ul {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-size: 1rem;
-	font-weight: 600;
-	line-height: 1.5;
-	color: black;
-	text-align: center;
-	background-color: white;
-	background-image: url(http://www.yoannbourse.com/ressources/design/teal/background.jpg);
 }
 
 body {
