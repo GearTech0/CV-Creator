@@ -7,39 +7,7 @@
   * Writes $report information .PDF based on $theme specifications
   *
   *
-  * $theme array specifications on how the PDF will look
-  * array(
-  *   title => array(
-  *     style => char
-  *   ),
-  *   header => array(
-  *     x => int,
-  *     y => int,
-  *     color => string, //hexcode
-  *     backgroundcolor => string, //hexcode
-  *     fontsize => int
-  *   ),
-  *   body => array(
-  *     x => int,
-  *     y => int,
-  *     color => string, //hexcode
-  *     backgroundcolor => string, //hexcode
-  *     fontsize => int
-  *   ),
-  *   footer => array(
-  *     x => int,
-  *     y => int,
-  *     color => string, //hexcode
-  *     backgroundcolor => string, //hexcode
-  *     fontsize => int
-  *   )
-  * )
-  * $report array information to write to PDF
-  * array(
-  *   name => string,
-  *   number => string,
-  *   email => string
-  * )
+  *
   */
   function CreateCV($theme, $report)
   {
@@ -137,7 +105,7 @@
     $accreds = $report['Accreds'];
     $template = $report['template'];
     // Update database entry with inputted information
-    $sql = "UPDATE `{$username}_previous_cv` 
+    $sql = "UPDATE `{$username}_previous_cv`
             SET Name='$name', Phone='$phone', Email='$email', WorkHistory='$work', Academic='$acad', Research='$research',
                 University='$uni', Degree='$degree', Major='$major', Certs='$certs', Accreds='$accreds', Theme='$template'
             WHERE CVName='$cvname'";
@@ -196,7 +164,7 @@
               'borderColor' => $row['box'.$x.'borderColor'],
               'ln' => $row['box'.$x.'ln'],
               'align' => $row['box'.$x.'align'],
-              'fill' => $row['box'.$x.'align'],
+              'fill' => $row['box'.$x.'fill'],
               'color' => $row['box'.$x.'color'],
               'font' => $row['box'.$x.'font'],
               'style' => $row['box'.$x.'style'],
