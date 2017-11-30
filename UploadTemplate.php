@@ -41,8 +41,7 @@
 				exit();
 			}else
 			{
-                $filename = explode(".", $target_file)[0].date("dYHis").".docx";
-				if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $filename))
+				if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
 				{
                     require "docxtotext.php";
                     require "Config.PHP";
