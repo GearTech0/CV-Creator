@@ -7,7 +7,7 @@
   * Writes $report information .PDF based on $theme specifications
   *
   *
-  * 
+  *
   */
   function CreateCV($theme, $report)
   {
@@ -164,7 +164,7 @@
               'borderColor' => $row['box'.$x.'borderColor'],
               'ln' => $row['box'.$x.'ln'],
               'align' => $row['box'.$x.'align'],
-              'fill' => $row['box'.$x.'align'],
+              'fill' => $row['box'.$x.'fill'],
               'color' => $row['box'.$x.'color'],
               'font' => $row['box'.$x.'font'],
               'style' => $row['box'.$x.'style'],
