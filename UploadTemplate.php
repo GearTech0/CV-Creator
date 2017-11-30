@@ -63,7 +63,6 @@
 
                     for($i=0;$i<strlen($docText);$i++)
                     {
-                        echo $docText{$i};
                         switch($docText{$i})
                         {
                             case '@':
@@ -83,12 +82,14 @@
                                 if($setName)
                                 {
                                     $setName = false;
-                                    $colName = utf8_encode($value);
+                                    $colName = $value;
                                     $setValue = true;
                                     $value = "";
                                 }else{
                                     $inside = $setName = $setValue = $d = false;
                                 }
+                                break;
+                            case ' ':
                                 break;
                             default:
                                 if($inside)
@@ -96,25 +97,28 @@
                                 break;
                         }
                     }
-
                     $keys = "";
                     $values = "";
-                    for($template as $key => $value)
+                    foreach($template as $key => $value)
                     {
-                        $keys .= $key . ",";
-                        if(intval($value))
-                            $values .= $value . ",";
+                        if($value == "") continue;
+                        $keys .= $conn->real_escape_string($key) . ", ";
+                        if(intval($value) || $value == '0')
+                            $values .=  $conn->real_escape_string($value) . ",";
                         else
-                            $values .= '"' . $value . '",';
+                            $values .= "'" . $conn->real_escape_string($value) . "',";
                     }
-                    $keys{strlen($keys)-1} = '';
-                    $values{strlen($values)-1} = '';
+                    $keys = substr($keys, 0, strlen($keys)-2);
+                    $values = substr($values, 0, strlen($values)-1);
 
-                    $sql = "INSERT INTO " . $_SESSION['login_user'] . "_templates (" . $keys . ") VALUES (" . $values . ");";
+                    $sql = "INSERT INTO `" . $_SESSION['login_user'] . "_templates` ({$keys}) VALUES ({$values});";
+
                     if($conn->query($sql))
-                        $error = $filename . ' uploaded successfully. ';
+                    {
+                        $error = $filename . ' uploaded successfully.';
+                    }
                     else
-                        $error = "Error sending template to database.";
+                        $error = "Error sending template to database." . $conn->error;
 				}else
 				{
 					$error = 'Upload failed';
