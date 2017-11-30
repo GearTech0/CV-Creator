@@ -891,7 +891,8 @@
 				Degree VARCHAR(255) DEFAULT '',
 				Major VARCHAR(50) DEFAULT '',
 				Certs TEXT(65532) DEFAULT '' NOT NULL,
-				Accreds TEXT(65532) DEFAULT '' NOT NULL
+				Accreds TEXT(65532) DEFAULT '' NOT NULL,
+				Theme VARCHAR(50) DEFAULT ''
 			);";
 			if(!$conn->query($sql))
 			{
