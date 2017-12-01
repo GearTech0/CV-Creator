@@ -44,10 +44,29 @@ Team 8
 1) Create a username and password to create a user account. Login.
 2) Homepage options:
 	-View Templates	  - shows template styles to choose from for CV
-	-Upload Templates - allows the user to create a template (using template language, described below) for future use.
+	-Upload Templates - allows the user to create a template (using template language, described below) for future use. Only accepts docx templates.
 	-Create CV 	  - asks the user for CV information and template style to generate CV
 		Note: after inputting CV information and choosing template, clicking "Create" will create and save the CV.
 	-Edit Existing CV - if the user has saved any CVs, they can edit them here
 	-View Saved CV 	  - shows any saved CVs for re-download.
+
+### Template Language:
+
+Note: Only accepts docx file type for uploads.
+
+All templates follow this format (substitute variable value for for any <> brackets):
+
+1) @<ThemeName>
+2) $<TestTheme>@$@
+3) <box1>$1@$@<box1width>$@$@<box1height>$@$@<box1text>$<box1title>@$@<box1border>$@$@<box1borderColor>
+$@$@<box1ln>$@$@<box1align>$@$@<box1fill>$@$@<box1color>$@$@<box1font>$@$@<box1style>$@$@<box1size>$@$@<box1fontColor>$@$@<box1title>
+$1@$@<box1subtitle>$0@$@<box1multi>$@$@<box1padding>$@$@<box1move>$@$
+4) Repeat code (3) except box1 should be box<#> where <#> is the box number (up to 30 boxes in a single template).
+5) Do not include spaces between any code from (1)-(4)
+
+
+Example code for box 1:
+
+@Fancy_Template$Fancy@$@box1$1@$@20$@$@20$@$@SAMPLE$TITLE@$@1$@$@1234565$@$@1$@$@L$@$@true$@$@1234567$@$@TimesNewRoman$@$@U$@$@20$@$@000$@$@Work_History$1@$@1$0@$@1$@$@box1padding$@$@10$@$
 
 
