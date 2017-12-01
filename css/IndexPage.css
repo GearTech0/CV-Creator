@@ -17,6 +17,10 @@ h3
 
     }
 
+h4 {
+	text-align:center;
+}
+
 li
     { 
 		list-style-type: none;
