@@ -17,6 +17,12 @@
 	<h1><a href = "Index.PHP">CV Creation Software</a></h1>
     <h2>Name CV</h2>
     <?php
+		/*
+		* This code allows the user to name the cv they are about to create
+		* This name is uploaded to the database and creates a new entry for a new cv
+		* No parameters
+		* No return values
+		*/
     	require "Config.PHP";
 		$error = '';
 

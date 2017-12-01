@@ -18,6 +18,8 @@
 	    	require "Config.PHP";
 			/**
 			* List all of the cvs the user has in this database
+      * No parameters
+      * No return values
 			*/
 			$sql = "SELECT `CVName` FROM " . $_SESSION['login_user'] . "_previous_cv";
 			$result = $conn->query($sql);
